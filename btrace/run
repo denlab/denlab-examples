@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+info() {
+    echo "$@" 1>&2
+}
+
+setJavaHomeToJdk() {
+    local javaPath="$(readlink -f $(which java))"
+    info " - javaPath=$javaPath"
+    info "echo $javaPath | grep -q '/jre/bin/java$';"
+    if echo $javaPath | grep -q '/jre/bin/java$'; then
+        info " - java path is a jdk "
+        info " - fixing java home .."
+        info "   - javaPath=$javaPath"
+        local jdkHome="$(echo $javaPath | sed -r 's|^(.*)/jre/bin/java$|\1|')"
+        info "   - jdkHome=$jdkHome"
+        if [[ -f $jdkHome/bin/java ]]; then
+            export JAVA_HOME=$jdkHome
+            export PATH="$JAVA_HOME/bin:$PATH"
+        else
+            info "cant fix java .."
+            exit 1
+        fi
+        info " - done fixing java home"
+    else
+        info " - java path not a jdk "
+    fi
+    javaPath="$(readlink -f $(which java))"
+    info "- javaPath=$javaPath"
+    info "- JAVA_HOME=$JAVA_HOME"
+}
+
+run.main() {
+    : ${1?"
+- Usage  : $0 <java-pid>
+- Example: $0 1234
+"}
+    local jPid="$1"
+
+    cd $(dirname $(readlink -f $0))
+
+    PATH=btrace-bin/bin:$PATH
+
+    btCp="$(ls btrace-bin/build | xa readlink -f | tr '\n' ':')"
+    # Usage: btrace <options> <pid> <btrace source or .class file> <btrace arguments>
+    # where possible options include:
+    # -classpath <path> Specify where to find user class files and annotation processors
+    # -cp <path>        Specify where to find user class files and annotation processors
+    # -I <path>         Specify where to find include files
+    # -p <port>         Specify port to which the btrace agent listens for clients
+    setJavaHomeToJdk
+    set -x
+    btrace -cp $btCp $jPid btrace-bin/samples/AllMethods2.java
+}
+
+run.main "$@"

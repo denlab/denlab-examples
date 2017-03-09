@@ -1,0 +1,4 @@
+*.class
+/btrace-bin/
+/btrace-bin.tar.gz
+java-example/pid

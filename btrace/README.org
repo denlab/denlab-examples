@@ -1,0 +1,8 @@
+#+begin_src sh
+cd btrace
+make
+cd java-example
+make
+./run &> /dev/null & echo $! > pid
+#+end_src
+
