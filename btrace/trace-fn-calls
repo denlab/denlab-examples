@@ -37,9 +37,11 @@ run.main() {
 - Usage  : $0 <java-pid>
 - Example: $0 1234
 "}
+    make
     local jPid="$1"
 
     cd $(dirname $(readlink -f $0))
+    export PATH=./lib:$PATH
 
     PATH=btrace-bin/bin:$PATH
 

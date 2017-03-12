@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euox pipefail
+IFS=$'\n\t'
+
+java-app.stop.main() {
+    cd $(dirname $(readlink -f $0))
+    local pid=java-example/pid
+    kill -9 $(cat $pid)
+    rm $pid
+}
+
+java-app.stop.main "$@"

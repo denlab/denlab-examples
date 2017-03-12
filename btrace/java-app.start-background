@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euox pipefail
+IFS=$'\n\t'
+
+java-app.run-background.main() {
+    cd $(dirname $(readlink -f $0))
+    cd java-example
+    make
+    ./run &> /dev/null & 
+    echo $! > pid
+}
+
+java-app.run-background.main "$@"

@@ -1,8 +1,7 @@
 #+begin_src sh
-cd btrace
-make
-cd java-example
-make
-./run &> /dev/null & echo $! > pid
+# start the java app example in background
+./java-app.start-background
+# trace fncalls
+./trace-fn-calls
 #+end_src
 
