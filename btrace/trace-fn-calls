@@ -45,7 +45,7 @@ run.main() {
 
     PATH=btrace-bin/bin:$PATH
 
-    btCp="$(ls btrace-bin/build | xa readlink -f | tr '\n' ':')"
+    btCp="$(ls btrace-bin/build | xargs -i readlink -f {} | tr '\n' ':')"
     # Usage: btrace <options> <pid> <btrace source or .class file> <btrace arguments>
     # where possible options include:
     # -classpath <path> Specify where to find user class files and annotation processors
