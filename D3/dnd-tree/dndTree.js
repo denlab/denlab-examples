@@ -410,7 +410,7 @@ treeJSON = d3.json("./flare.json", function(error, treeData) {
             })
             .on('click', click);
 
-        nodeEnter.append("circle")
+        nodeEnter.append("a").append("circle")
             .attr('class', 'nodeCircle')
             .attr("r", 0)
             .style("fill", function(d) {
