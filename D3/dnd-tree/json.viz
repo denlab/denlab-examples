@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euox pipefail
+IFS=$'\n\t'
+
+json.viz.main() {
+    cd $(dirname $(readlink -f $0))
+    cat > flare.json
+    make http-server.start
+    google-chrome http://localhost:8081/
+}
+
+[ "$0" == "$BASH_SOURCE" ] && json.viz.main "$@"
