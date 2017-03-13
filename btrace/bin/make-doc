@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -euox pipefail
+IFS=$'\n\t'
+
+doc.begin() {
+    echo '#+begin_src sh' >> doc.org
+}
+
+doc.end() {
+    echo '#+end_src' >> doc.org
+}
+
+doc.write() {
+    echo "$ $@" >> doc.org
+}
+
+doRun() {
+    doc.begin
+    doc.write "$@"
+    "$@" &>> doc.org
+    doc.end
+}
+
+make-doc.main() {
+    cd $(dirname $(readlink -f $0))
+    cd ..
+}
+
+make-doc.main "$@"
