@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+headerArg=headerArgVal . $(dirname $(readlink -f $0))/header.sh
+

@@ -1,0 +1,3 @@
+show that when sourcing, it's possible: 
+- to pass a single named param to the sourced script
+- to pass positionnal args to the sourced script

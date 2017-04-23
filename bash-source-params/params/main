@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+. $(dirname $(readlink -f $0))/header.sh headerArg1
+
+echo "main > \$1=$1"
