@@ -1,0 +1,9 @@
+version: '3'
+services:
+  build-time-args:
+    build:
+      context: .
+      args: 
+        foo: bar
+
+
