@@ -1,12 +1,19 @@
 define pInfo =
-	@echo '$@\n$^\n' | jq -R '.' | jq -s '. as [$$a,$$b] | {"$$@": $$a, "$$^": $$b}'
+@jq -cn --arg at '$@' --arg caret '$^' '{"$$@": $$at,"$$^": $$caret}' 
 endef
+
 
 start: a b
 	$(pInfo)
 
-a: b
+a:
 	$(pInfo)
 
-b:
+b: c d
+	$(pInfo)
+
+c:
+	$(pInfo)
+
+d:
 	$(pInfo)
