@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+makefile_producer.main() { 
+    echo "\
+a:
+	echo a
+"
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  makefile_producer.main "$@"
+fi
