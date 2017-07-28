@@ -1,0 +1,3 @@
+~define~ example.
+
+print targets and prerequisites as a json object for each recipe.

@@ -2,7 +2,6 @@ define pInfo =
 @jq -cn --arg at '$@' --arg caret '$^' '{"$$@": $$at,"$$^": $$caret}' 
 endef
 
-
 start: a b
 	$(pInfo)
 
