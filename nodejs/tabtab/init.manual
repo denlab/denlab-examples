@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# . $(dirname $(readlink -f ${BASH_SOURCE}))/header.sh
+# . util.sh
+
+init.manual.main() {
+    cat <<EOF
+
+  . <(tabtab install --stdout --name program)  
+
+EOF
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  init.manual.main "$@"
+fi

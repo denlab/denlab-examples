@@ -1,0 +1,21 @@
+#! /usr/bin/env node
+
+// Ex. bin/ entry point for a "program" package
+var tab = require('tabtab')({
+  name: 'program'
+});
+
+// General handler. Gets called on `program <tab>` and `program stuff ... <tab>`
+tab.on('program', function(data, done) {
+  // General handler
+  done(null, ['foo', 'bar']);
+});
+
+// Specific handler. Gets called on `program list <tab>`
+tab.on('list', function(data, done) {
+  done(null, ['file.js', 'file2.js']);
+});
+
+// Start must be called to register the completion commands and listen for
+// completion.
+tab.start();
