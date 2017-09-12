@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+declare currDir=$(cd $(dirname $(readlink -f $0)))
+PATH+="${currDir}"
+export PATH
+. print.sh
+. lib.sh
+
+echo "- [$0] Calling libFn ..." 1>&2
+libFn

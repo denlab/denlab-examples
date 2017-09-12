@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+. ./lib.sh
+
+echo "- [$0] Calling libFn ..." 1>&2
+libFn
