@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -euo pipefail
+. log.sh
+. lib.sh
+
+run.fnExists() {
+    log.fn.begin $FUNCNAME
+    if type "${1}" &> /dev/null; then
+        echo true
+    else
+        echo false
+    fi
+    log.fn.end $FUNCNAME
+}
+
+run.main.useToolAsScript() {
+    log.fn.begin $FUNCNAME
+    log.print "[run] fn lib.f exists?: $(run.fnExists lib.f)"
+    ./tool
+    log.fn.end $FUNCNAME
+}
+run.main.useToolAsSource() {
+    log.fn.begin $FUNCNAME
+    . tool
+    log.fn.end $FUNCNAME
+}
+run.main() {
+    log.fn.begin $FUNCNAME
+    log.begin $FUNCNAME
+    run.main.useToolAsScript
+    run.main.useToolAsSource
+    log.fn.end $FUNCNAME
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  run.main "$@"
+fi
