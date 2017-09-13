@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+run.main() {
+    # example from: https://www.cyberciti.biz/faq/unix-linux-chroot-command-examples-usage-syntax/
+  export J=$HOME/jail
+  mkdir -p $J
+  mkdir -p $J/{bin,lib64,lib}
+  cd $J
+  cp -v /bin/{bash,ls} $J/bin
+  hr
+  ldd /bin/bash 
+  hr
+  ldd /bin/bash \
+      | jqx -j '
+  .
+| debug
+| select(test("\\s=>\\s+\\(") | not)
+# | capture("(?<all>.*)") 
+# | capture("^\\s*(?<all>.*)") 
+# | ltrimstr(" => ")
+# | "cp -v \(.) \(env.J)/lib64/" | .
+' \
+      # | jq -r '.'
+  # cp -v /lib64/libtinfo.so.5 /lib64/libdl.so.2 /lib64/libc.so.6 /lib64/ld-linux-x86-64.so.2 $J/lib64/
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  run.main "$@"
+fi
