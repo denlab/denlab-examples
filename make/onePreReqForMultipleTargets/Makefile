@@ -10,7 +10,7 @@ all: view
 
 targetDb = sumOneTwo two one srcFile
 
-view: listTargets sumOneTwo ## view the results
+view: sumOneTwo ## view the results
 	ls -rt | grep -E "($$(echo $(targetDb) | tr ' ' '|'))" | xargs cat | jq -s 'add' | jsonToYaml | ag --color-match 36 '\S+(?=:)' 
 
 sumOneTwo: one two ## sum one and two
@@ -25,7 +25,7 @@ one: srcFile ## create one
 srcFile: ## create srcFile
 	jq -n '{one: 1, two: 2}' | $(jqEnd)
 
-.PHONY: view clean sumOneTwo
+.PHONY: view clean
 
 clean: listTargets ## cleanup
 	cat $^ | xargs rm -f
