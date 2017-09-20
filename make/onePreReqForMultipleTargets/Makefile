@@ -1,3 +1,6 @@
+
+showUtilHelp = false 
+$(info showUtilHelp=$(showUtilHelp))
 include util.mk
 
 ranTargets = 
@@ -7,8 +10,6 @@ jq '{"$@": .}' > $@
 endef
 
 all: view
-
-targetDb = sumOneTwo two one srcFile
 
 view: sumOneTwo ## view the results
 	ls -rt | grep -E "($$(echo $(targetDb) | tr ' ' '|'))" | xargs cat | jq -s 'add' | jsonToYaml | ag --color-match 36 '\S+(?=:)' 
