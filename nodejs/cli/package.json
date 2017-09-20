@@ -1,0 +1,11 @@
+{
+  "name": "cli-example",
+  "version": "1.0.0",
+  "description": "cli example",
+  "main": "index.js",
+  "scripts": {
+    "test": "cli.test"
+  },
+  "author": "",
+  "license": "ISC"
+}
