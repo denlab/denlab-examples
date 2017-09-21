@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.15.4",
+    "falcor-express": "^0.1.4",
     "falcor-router": "^0.8.1"
   }
 }
