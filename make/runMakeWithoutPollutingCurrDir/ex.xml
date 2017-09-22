@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.65">
+      <scriptText>job(&apos;jobA&apos;)
+job(&apos;jobB&apos;)
+job(&apos;jobC&apos;)
+job(&apos;jobD&apos;)
+job(&apos;jobE&apos;)
+job(&apos;jobZ&apos;)
+
+multiJob(&apos;example&apos;) {
+    steps {
+        phase(&apos;Second&apos;) {
+            phaseJob(&apos;JobZ&apos;) {
+                parameters {
+                    propertiesFile(&apos;my1.properties&apos;)
+                }
+            }
+        }
+        phase(&apos;Third&apos;) {
+            phaseJob(&apos;JobA&apos;)
+            phaseJob(&apos;JobB&apos;)
+            phaseJob(&apos;JobC&apos;)
+        }
+        phase(&apos;Fourth&apos;) {
+            phaseJob(&apos;JobD&apos;) {
+                currentJobParameters(false)
+                parameters {
+                    booleanParam(&apos;cParam&apos;, true)
+                    propertiesFile(&apos;my.properties&apos;)
+                    sameNode()
+                    matrixSubset(&apos;it.name==&quot;hello&quot;&apos;)
+                    subversionRevision()
+                    gitRevision()
+                    predefinedProp(&apos;prop1&apos;, &apos;value1&apos;)
+                }
+                configure { phaseJobConfig -&gt;
+                    phaseJobConfig / enableCondition &lt;&lt; &apos;true&apos;
+                    phaseJobConfig / condition &lt;&lt; &apos;${RUN_JOB} == &quot;true&quot;&apos;
+                }
+            }
+        }
+    }
+}
+
+job(&apos;a-g1&apos;) {
+  publishers {
+	downstream(&apos;b-g1&apos;)
+  }
+ }	
+
+job(&apos;b-g1&apos;){
+ publishers {
+	downstream(&apos;c-g1&apos;)
+  }
+}
+job(&apos;c-g1&apos;){
+}
+job(&apos;a-g2&apos;){
+ publishers {
+	downstream(&apos;b-g2&apos;)
+  }
+}
+job(&apos;b-g2&apos;){
+ publishers {
+	downstream(&apos;b-g2&apos;)
+  }
+}
+job(&apos;c-g2&apos;){}
+
+
+
+deliveryPipelineView(&apos;v&apos;) {
+    pipelineInstances(1)
+    showAggregatedPipeline()
+    columns(2)
+    sorting(Sorting.TITLE)
+    updateInterval(60)
+    enableManualTriggers()
+    showAvatars()
+    showChangeLog()
+    pipelines {
+        //component(&apos;Sub System A&apos;, &apos;compile-a&apos;)
+        //component(&apos;Sub System B&apos;, &apos;compile-b&apos;)
+        component(&apos;g1&apos;, &apos;a-g1&apos;)
+        component(&apos;g2&apos;, &apos;a-g2&apos;)
+        //regex(/(.*)-g1/)
+        //regex(/(.*)-g2/)
+    }
+}</scriptText>
+      <usingScriptText>true</usingScriptText>
+      <sandbox>false</sandbox>
+      <ignoreExisting>false</ignoreExisting>
+      <ignoreMissingFiles>false</ignoreMissingFiles>
+      <failOnMissingPlugin>true</failOnMissingPlugin>
+      <unstableOnDeprecation>true</unstableOnDeprecation>
+      <removedJobAction>DELETE</removedJobAction>
+      <removedViewAction>DELETE</removedViewAction>
+      <removedConfigFilesAction>DELETE</removedConfigFilesAction>
+      <lookupStrategy>SEED_JOB</lookupStrategy>
+    </javaposse.jobdsl.plugin.ExecuteDslScripts>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>
