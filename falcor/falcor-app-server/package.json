@@ -11,6 +11,7 @@
   "dependencies": {
     "express": "^4.15.4",
     "falcor-express": "^0.1.4",
-    "falcor-router": "^0.8.1"
+    "falcor-router": "^0.8.1",
+    "nodemon": "^1.12.1"
   }
 }
