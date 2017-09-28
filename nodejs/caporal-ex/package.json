@@ -1,0 +1,15 @@
+{
+    "name": "caporal-ex",
+    "version": "1.0.0",
+    "description": "",
+    "main": "myprog.js",
+    "scripts": {
+        "run": "./myprog.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "caporal": "^0.7.0"
+    }
+}
