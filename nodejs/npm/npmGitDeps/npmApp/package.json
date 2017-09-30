@@ -1,8 +1,8 @@
 {
-  "name": "npmfornonnode",
+  "name": "npmapp",
   "version": "0.0.1",
   "description": "example of npm packaging for non node project",
-  "bin": "npmfornonnode",
+  "bin": "npmapp",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
