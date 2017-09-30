@@ -14,10 +14,10 @@ uninstall:
 	! npmapp &> /dev/null
 
 npmlib.add:
-	 npm install 'git+ssh://git@github.com:denlab/denlab-examples.git#repo/npm/npmLib'
+	 npm install 'git+ssh://git@github.com:denlab/denlab-examples.git#repo/npm/npmlib'
 
 npmlib.rm:
-	 npm uninstall 'git+ssh://git@github.com:denlab/denlab-examples.git#repo/npm/npmLib'
+	 npm uninstall 'git+ssh://git@github.com:denlab/denlab-examples.git#repo/npm/npmlib'
 
 .PHONY: clean
 clean:

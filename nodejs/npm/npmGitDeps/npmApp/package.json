@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "npmlib": "git+ssh://git@github.com/denlab/denlab-examples.git#repo/npm/npmLib"
+    "npmlib": "git+ssh://git@github.com/denlab/denlab-examples.git#repo/npm/npmlib"
   }
 }
