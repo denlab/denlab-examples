@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "this is not node!"
+echo "this is $(basename $0) !"

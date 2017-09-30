@@ -1,13 +1,24 @@
-bin = $(abspath $(NODE_PATH)/../../bin/npmfornonnode)
+SHELL=/bin/bash
+.SHELLFLAGS=-euo pipefail -c
+bin = $(abspath $(NODE_PATH)/../../bin/npmapp)
 
-.PHONY: all
-all: $(bin);
+test: $(bin)
+	diff <(npmapp) <(echo  'this is npmapp !')
+	touch $@
 
-t: 
-	echo $(bin)
-	file $(bin)
-
-$(bin): npmfornonnode 
-	echo $@
+$(bin): npmapp
 	npm install -g
 
+uninstall:
+	npm uninstall -g
+	! npmapp &> /dev/null
+
+npmlib.add:
+	 npm install 'git+ssh://git@github.com:denlab/denlab-examples.git#repo/npm/npmlib'
+
+npmlib.rm:
+	 npm uninstall 'git+ssh://git@github.com:denlab/denlab-examples.git#repo/npm/npmlib'
+
+.PHONY: clean
+clean:
+	rm -r test
