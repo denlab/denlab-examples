@@ -1,27 +1,27 @@
-b := build
+define end =
+touch $@
+echo $@ >> buildfiles
+endef
 
-.PHONY: $b/all
-$b/all: $b/run
+.PHONY: all
+all: run
 	l
 	chmod +x myprog.js
 
-$b/run: $b/npm.add.caporal
+.PHONY: run
+run: node_modules/caporal
 	./myprog.js
 
-$b/compl: $b/npm.add.caporal
+compl: node_modules/caporal
 	echo -e '\n# To add auto completion run:\nexport PATH=$$PATH:$$(pwd) && . <(./myprog.js completion $$(basename $$SHELL))\n'
 	echo -e '# (zsh) to make it persist: '
 	echo -e 'echo "source <(./myprog.js completion zsh)" > ~/.zsh/completion/_myprog.js  \
 && source ~/.zsh/completion/_myprog.js'
-	touch $@
+	$(end)
 
-$b/npm.add.caporal: $b/init
+node_modules/caporal:
 	npm install caporal --save
-	touch $@
-
-$b/init:
-	mkdir -p $b
 
 clean:
-	rm -rf build
-
+	cat buildfiles | sort | uniq | xargs -r rm 
+	rm -f buildfiles
