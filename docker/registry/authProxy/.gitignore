@@ -1,0 +1,7 @@
+auth/domain.crt
+auth/domain.key
+auth/nginx.htpasswd
+buildfiles
+cert.pem
+data
+key.pem
