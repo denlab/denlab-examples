@@ -1,0 +1,20 @@
+
+*.log
+# Created by https://www.gitignore.io/api/clojure
+
+### Clojure ###
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/lib/
+/classes/
+/target/
+/checkouts/
+.lein-deps-sum
+.lein-repl-history
+.lein-plugins/
+.lein-failures
+.nrepl-port
+
+# End of https://www.gitignore.io/api/clojure
