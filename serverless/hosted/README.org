@@ -1,0 +1,12 @@
+* TODO Funktion
+https://github.com/funktionio/funktion
+* TODO Iron Functions
+https://github.com/iron-io/functions
+* TODO OpenWhisk
+https://github.com/kubeless/kubeless
+* TODO Kubeless
+https://github.com/kubeless/kubeless
+* TODO Fission
+https://github.com/fission/fission
+* TODO FaaS-netes
+  https://github.com/alexellis/faas-netes
