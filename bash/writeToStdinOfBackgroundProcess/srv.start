@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+srv.start.main() {
+    cat <<EOF
+if [[ -f pid ]]; then
+  echo "found exsting pid file, call srv.stop before"
+else
+  mkfifo in
+  cat > in &
+  echo \$! > pid
+  cat in | "$@"
+fi
+EOF
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  srv.start.main "$@"
+fi

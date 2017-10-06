@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -xeuo pipefail
+
+rm -rf serv-info
+mkdir serv-info
+mkfifo serv-info/srv-input
+cat > serv-info/srv-input & 
+echo $! > serv-info/serv-input-cat-pid
+cat serv-info/srv-input | bash & 
+ps f 

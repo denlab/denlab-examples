@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+srv.stop.info() {
+    echo "serverInfos:"
+    if [[ -f pid ]]; then
+        echo "  pid: $(cat pid)"
+    else
+        echo " pid: pidFileNotFound"
+    fi
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  srv.stop.info "$@"
+fi

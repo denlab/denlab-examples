@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -xeou pipefail
+
+srv.stop.main() {
+   kill -9 $(cat pid) 
+   rm -f in pid
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  srv.stop.main "$@"
+fi
