@@ -1,0 +1,3 @@
+* du-make
+
+Calculate the size of a directory with only =stat= and =make=.
