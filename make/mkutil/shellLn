@@ -1,0 +1,14 @@
+#-*- mode: makefile -*-
+
+-include mkutil/bash
+-include mkutil/chars
+-include chars
+
+ifndef shell_cmd
+$(info - notdef)
+else
+$(info - def)
+endif
+
+uuid := $(shell cat /proc/sys/kernel/random/uuid)
+

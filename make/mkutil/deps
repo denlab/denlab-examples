@@ -1,0 +1,24 @@
+# -*- makefile -*-
+
+include mkutil/bash
+include mkutil/begin
+
+.PHONY: $ddeps.view
+$ddeps.view: $ddeps.png
+	$(begin)
+	eog $^
+
+$ddeps.png: $ddeps.dot
+	$(begin)
+	mkdir -p $(dir $@)
+	dot -Tpng $^ > $@
+
+$ddeps.dot:
+	$(begin)
+	mkdir -p $(dir $@)
+	$(MAKE) --debug=a -f $(firstword $(MAKEFILE_LIST)) $(t) | make2graph > $@
+
+$dclean:
+	$(begin)
+	rm -f $ddeps.{dot,png}
+

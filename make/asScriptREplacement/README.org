@@ -1,0 +1,12 @@
+Use make as replacment for shell script.
+In particualar so the user can choose a set of options, and auto completion.
+
+eg: 
+#+BEGIN_SRC sh
+foo conf/global/set
+foo conf/global/get
+foo init
+foo run
+foo continue
+...
+#+END_SRC

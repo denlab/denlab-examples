@@ -1,0 +1,18 @@
+# -*- makefile -*-
+
+space := #
+define nl
+
+
+endef
+tab != echo $$'\n'
+tab != jq -nr '"\t"'
+
+mkutils/chars.check:
+	$(begin)
+	[[ '$(tab)' == $$'\t' ]]
+	[[ '$(tab)' != ' ' ]]
+
+checkTargets += mkutils/chars.check
+
+t := $(nl)$(tab)

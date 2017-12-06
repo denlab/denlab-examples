@@ -1,0 +1,4 @@
+# -*- makefile -*- 
+
+include install/$d/Makefile
+
