@@ -1,0 +1,36 @@
+# -*- makefile -*-
+
+# stdout_color_default := 43
+# $(info - stdout_color=$(stdout_color))
+# stdout_color := $(if $(stdout_color),${stdout_color_default},$(stdout))
+# $(info - stdout_color=$(stdout_color))
+# ifeq ($(stdout_color),)
+#   $(info xxx stdout_color not defined)
+#   stdout := 42
+# else
+#   $(info xxx stdout_color defined )
+# endif
+# $(info - ifTest: $(if $(stdout_color),stdout_color defined,stdout_color notdefined))
+# $(info - stdout_color=$(stdout_color))
+stdout_color := 47
+stdout_color  := $(shell expr $(stdout_color) - 1)
+stdout_color2 := $(shell expr $(stdout_color) - 1)
+$(info - stdout_colors=$(stdout_color),$(stdout_color2))
+begin = 
+ifeq ($(verbose),)
+  # $(info - verbose)
+  toLines = $(space) $(foreach v,$(1),- '$(v)'$(nl))
+  define begin
+    echo - stdout_color=$(stdout_color)
+    @echo $@ | GREP_COLOR="01;$(stdout_color)" egrep --color=always ".*" || true 1>&2
+    $(if $^,@echo $^ | tr ' ' '\n' | sed -r 's/.*/  - &/' | GREP_COLOR="01;$(stdout_color2)" egrep --color=always "[-].*" || true 1>&2)
+  endef
+else
+  # $(info - notVerbose)
+endif
+
+
+define end =
+		tee $@ | GREP_COLOR="01;30" egrep --color=always ".*" || true 1>&2
+endef
+
