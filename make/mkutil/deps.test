@@ -1,0 +1,9 @@
+# -*- makefile -*-
+
+include mkutil/bash
+include mkutil/begin
+# d := deps/
+include mkutil/deps
+
+deps.test/all: deps.view
+	$(begin)

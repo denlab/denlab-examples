@@ -1,0 +1,4 @@
+
+How to have multi lines in makefiles without too much pain?
+
+make clean && make
