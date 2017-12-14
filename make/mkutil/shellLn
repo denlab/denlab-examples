@@ -1,4 +1,5 @@
 #-*- mode: makefile -*-
+$(info - include: mkutil/shellLn)
 
 -include mkutil/bash
 -include mkutil/chars

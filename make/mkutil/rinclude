@@ -1,4 +1,5 @@
 # -*- makefile -*- 
+$(info - include: mkutil/rinclude)
 
 include install/$d/Makefile
 

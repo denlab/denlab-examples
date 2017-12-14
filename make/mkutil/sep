@@ -1,3 +1,6 @@
+# -*- makefile -*-
+$(info - include: mkutil/rsep)
+
 sep_char := _
 sep =                                                                     \
 @tput cols                                                                \

@@ -1,0 +1,42 @@
+# -*- makefile -*-
+
+# <clean> ----------------------------------------------------------------------
+
+clean: clean_rm clean_check
+	$(begin)
+
+
+.PHONY: .gitignore.new
+.gitignore.new: clean_rm_files
+	$(begin)
+	cp .gitignore .gitignore.tmp
+	comm -13 .gitignore $< | sort >> .gitignore.tmp
+	mv .gitignore.tmp .gitignore	
+
+.PHONY: .gitignore
+.gitignore: .gitignore.new
+	$(begin)
+	cat $<
+
+clean_rm_files: $(MAKEFILE_LIST)
+	$(begin)
+	echo $(files) | tr ' ' '\n' | sort | $(end)	
+
+clean_rm: clean_rm_files
+	$(begin)
+	$(if $(shell cat $<),,\
+	$(error $(nl)$(nl)\
+	ERROR!$(nl)\
+	* missing variable$(nl)\
+	.. * locale to the target '$@'$(nl)\
+	.. * with name: 'files'$(nl)\
+	* must be defined!$(nl)\
+	* definition example: $(nl)\
+	    clean_rm_files: files := fileToDelete1 fileToDelete2$(nl)$(nl)))
+	rm -f $(shell cat $<)
+
+clean_check:
+	$(begin)
+	diff <(echo $(files) | tr ' ' '\n' | sort) <(ls | sort)
+
+# </clean> ---------------------------------------------------------------------

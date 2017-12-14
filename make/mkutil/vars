@@ -1,0 +1,34 @@
+# -*- makefile -*-
+include mkutil/chars
+
+vars_re := back_%
+ifneq ($(verbose),)
+  $(info .VARIABLES maching '$(vars_re)':$(nl)$(foreach v,$(filter $(vars_re),$(.VARIABLES)), - $v=$($v)$(nl)))
+endif
+
+# $(info .VARIABLES '$(nl)$(foreach v,$(filter $(vars_re),$(.VARIABLES)), - $v=$($v)$(nl)))
+# $(info - .VARIABLES=$(.VARIABLES)=$($(.VARIABLES)) )
+
+varsKeys: vars
+	$(begin)
+	echo '$(foreach v,$(shell cat $<),$(v)=$(subst $(nl),\\n,$($(v))))'
+
+.PHONY: vars
+vars:
+	$(begin)
+	echo '$(.VARIABLES)' | tr ' ' '\n' | $(end)
+
+keysRegex := A%
+keysVals := $(foreach v,$(filter $(keysRegex),$(.VARIABLES)),"$(v)":"$($(v))",)
+keysRegex := A%
+keysVals := $(foreach v,$(filter $(keysRegex),$(.VARIABLES)),"$(v)":"$($(v))",)
+$(info ########################################################3)
+$(info - keysVals=$(keysVals))
+$(info ########################################################3)
+$(info $(shell echo '$(keysVals)' > a))
+$(info $(shell jq -n '$(keysVals)'))
+
+# $(info >>>>>>>>>>>>>jq -n '{$(foreach v,$(.VARIABLES),"$(v)":"$($(v))",)')
+# $(info $(shell jq -n '$(foreach v,$(.VARIABLES),"$(v)":"$($(v))",)'))
+
+

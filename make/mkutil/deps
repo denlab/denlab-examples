@@ -1,4 +1,5 @@
 # -*- makefile -*-
+$(info - include: mkutil/deps)
 
 include mkutil/bash
 include mkutil/begin

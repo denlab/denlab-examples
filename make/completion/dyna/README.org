@@ -1,0 +1,17 @@
+Is it possible to use shell completion with make as follows: ?
+
+- Given the following =Makefile=: 
+#+BEGIN_SRC makefile
+  a: @: ; 
+  b: @: ;
+  c: @: ;
+#+END_SRC
+
+- In a bash shell: 
+  - =make <TAB><TAB>=
+  - will propose the following completions: =a b c=
+  
+- Now, is it possible to have a dynamic completion depending on the already passed targets on the command line.
+  - In order to have: =make a <TAB><TAB>=
+  - Different from  : =make b <TAB><TAB>=
+

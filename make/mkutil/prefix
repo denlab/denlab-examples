@@ -1,3 +1,5 @@
 # -*- makefile -*-
+$(info - include: mkutil/prefix)
+
 
 d := $(if $(d),$(d),.)
