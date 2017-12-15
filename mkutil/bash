@@ -1,0 +1,5 @@
+# -*- makefile -*-
+
+SHELL       := /bin/bash
+.SHELLFLAGS := -euo pipefail -c
+

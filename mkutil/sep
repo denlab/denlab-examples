@@ -1,0 +1,17 @@
+# -*- makefile -*-
+$(info - include: mkutil/rsep)
+
+sep_char := _
+sep =                                                                     \
+@tput cols                                                                \
+| jq -r '                                                                 \
+  {cols: .}                                                               \
+| .title       = "$@"                                                     \
+| .titleLength = (.title | length)                                        \
+| .leftSize    = ((.cols - 2 - .titleLength ) / 2 | floor)                \
+| .left        = (.leftSize * "$(sep_char)")                              \
+| .result      = .left + " " + .title + " " + .left                       \
+| .result      = .result + ((.cols - (.result | length)) * "$(sep_char)") \
+| .result                                                                 \
+'
+

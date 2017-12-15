@@ -1,0 +1,11 @@
+# -*- makefile -*-
+$(info - include: mkutil/varPrn)
+
+include mkutil/bash
+include mkutil/chars
+
+$(info - .VARIABLES:)
+$(info $(foreach v,$(.VARIABLES),- $v=$($v)$(nl)))
+
+vars:
+  echo '$(.VARIABLES)'

@@ -1,0 +1,23 @@
+# -*- makefile -*-
+ifneq ($(verbose),)
+  $(info include mkutil/begin)
+endif
+
+stdout_color  := 45
+stdout_color  := $(shell expr $(stdout_color) - 1)
+stdout_color2 := $(shell expr $(stdout_color) - 1)
+ifeq ($(verbose),)
+  define begin
+    @echo $@ | { GREP_COLOR="01;44" egrep --color=always ".*" || true ; } 1>&2
+    $(if $^,										\
+          @echo $^							\
+        | tr     ' ' '\n'				\
+        | sed -r 's/.*/  - &/'	\
+        | { GREP_COLOR="01;$(stdout_color2)" egrep --color=always "[-].*" || true ; } 1>&2)
+  endef
+endif
+
+define end
+  tee $@ | { GREP_COLOR="01;30" egrep --color=always ".*" || true ; } 1>&2
+endef
+

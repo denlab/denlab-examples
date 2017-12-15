@@ -1,0 +1,28 @@
+# -*- makefile -*-
+
+# ifeq -------------------------------------------------------------------------
+ifeq ($(chars_init),)
+chars_init := true
+
+ifneq ($(verbose),)
+  $(info - include: mkutil/chars)
+endif
+
+space := #
+define nl
+
+
+endef
+tab != echo $$'\n'
+tab != jq -nr '"\t"'
+
+
+# mkutils/chars.check:
+# 	$(begin)
+# 	[[ '$(tab)' == $$'\t' ]]
+# 	[[ '$(tab)' != ' ' ]]
+
+checkTargets += mkutils/chars.check
+
+endif
+# ifeq -------------------------------------------------------------------------

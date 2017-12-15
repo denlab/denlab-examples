@@ -1,0 +1,12 @@
+# -*- makefile -*-
+$(info - include: mkutil/gitpush)
+include mkutil/bash
+include mkutil/begin
+
+gitpush: 
+	$(begin)
+	if ! [[ -z "$$(git status -s)" ]]; then									\
+			 git add .																					\
+		&& git commit -m '$(MAKE) $(gitpush_defaultgoal): OK' \
+		&& git push ;																					\
+	fi
