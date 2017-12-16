@@ -1,16 +1,10 @@
-SHELL := bash
-.SHELL_FLAGS := -xeuo pipefail -c
+include mkutil/bash
+include mkutil/begin
 
 domain := $(shell hostname -I | cut -d' ' -f1)
+docker_host_cert := /etc/docker/certs.d/$(domain)/ca.crt
 
-define begin =
-@echo $@ | grep --color=always '.*' 1>&2
-endef
-
-define begin_ =
-$(begin)
-@echo $@ >> buildfiles
-endef
+# targets ----------------------------------------------------------------------
 
 .PHONY: curl
 curl: up
@@ -18,61 +12,91 @@ curl: up
 	curl --cacert cert.pem -X GET https://$(domain)/v2/_catalog
 	curl --cacert cert.pem -X GET https://$(domain)/v2/my-alpine/tags/list
 
-push: domainAllowed
-	$(begin_)
+push:  domainAllowed
+	$(begin)
 	docker pull alpine:3.6
-	docker tag alpine:3.6 $(domain)/my-alpine
-	docker push $(domain)/my-alpine
-	docker pull $(domain)/my-alpine
+	docker tag  alpine:3.6 $(shell cat $<)/my-alpine
+	docker push $(shell cat $<)/my-alpine
+	docker pull $(shell cat $<)/my-alpine
+
+# <docker-insecure registry> ---------------------------------------------------
+
+docker_info:
+	$(begin)
+	docker info | $(end)
 
 .PHONY: domainAllowed
-domainAllowed:
-	$(begin_)
-ifeq ($(shell ./dockerHostAllowInsecureRegistry $(domain)),false)
-	@echo -e '																								\n'\
+domainAllowed: docker_is_allow_insecure_registries
+	$(begin)
+	if ! $(shell cat $<); then                                                     \
+		echo -e '																																	\n'\
 	'domain $(domain) is not allowed as an insecure registry	\n'\
-	'- to add it:																							\n'\
+	'- to add it:																																\n'\
 	'  - add {"insecure-registries": ["$(domain)"]}						\n'\
-	'  - to /etc/docker/daemon.json														\n'\
-	'  - and restart docker																		\n'
-	@exit 1
-endif
+	'  - to /etc/docker/daemon.json																							\n'\
+	'  - and restart docker																											\n'\
+		&& exit 1;                                                                   \
+	fi
+
+docker_is_allow_insecure_registries: docker_info
+	$(begin)
+		cat $<                                     \
+	| jq -Rs                                     \
+	'  split("Insecure Registries:\n")[-1]			'\
+	'| [splits("\n[^ ]")][0]										'\
+	'| ltrimstr(" ")														'\
+	'| split("\n ")															'\
+	'| any(. == "$(domain)")	'\
+	| $(end)
+
+# </docker-insecure registry> --------------------------------------------------
+
+# <docker-compose-targets> -----------------------------------------------------
 
 .PHONY: logs
 logs:
-	$(begin_)
+	$(begin)
 	docker-compose logs -f
 
 .PHONY: down
 down:
-	$(begin_)
+	$(begin)
 	docker-compose down
 
 .PHONY: up
 up:
-	$(begin_)
+	$(begin)
 	@$(if $(shell docker-compose ps | tail -n +3 | grep ' Up '),,docker-compose up -d)
 
+# <docker-compose-targets> -----------------------------------------------------
 
-#.PHONY: certs.all
-#certs.all: certs /etc/docker/certs.d/$(domain)/ca.crt;
+# <certs-targets> --------------------------------------------------------------
 
-#/etc/docker/certs.d/$(domain)/ca.crt: cert.pem
-#	sudo cp $^ $@
+.PHONY: _certs_all
+certs.all: $(docker_host_cert) certs
+	$(begin)
 
-certs: key.pem cert.pem Makefile
-	$(begin_)
+$(docker_host_cert): cert.pem
+	$(begin)
+	sudo cp -b $^ $@
+
+.PHONY: _certs
+_certs: certs/domain.key certs/domain.crt
+	$(begin)
+
+certs:
+	$(begin)
 	mkdir -p certs
-	cp key.pem  certs/domain.key
-	cp cert.pem certs/domain.crt
 
-certs/domain.key: key.pem
+certs/domain.key: key.pem | certs
 	$(begin)
 	cp $^ $@
 
-certs/domain.crt: cert.pem
+certs/domain.crt: cert.pem | certs
 	$(begin)
 	cp $^ $@
+
+# </certs-targets> --------------------------------------------------------------
 
 auth/nginx.htpasswd:
 	$(begin)
@@ -83,8 +107,12 @@ cert.pem:
 	openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 
 # cert.pem:
-# 	$(begin)
-# 	echo -e '\n\n\n\n\n\n\n' | openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+#		$(begin)
+#		echo -e '\n\n\n\n\n\n\n' | openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 
-clean:
-	if [[ -f buildfiles ]]; then rm -f $(cat buildfiles) && rm buildfiles ; fi
+include mkutil/clean
+
+clean_rm: files=docker_info docker_is_allow_insecure_registries domain callgrind.* cert.* certs clean_rm_files data key.pem *.pem
+clean_rm:
+	$(begin)
+	rm -rf data certs clean_rm_files

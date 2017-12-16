@@ -1,1 +1,12 @@
-export domain="${1}" && docker info | jq -Rs 'split("Insecure Registries:\n")[-1] | [splits("\n[^ ]")][0] | ltrimstr(" ") | split("\n ") | any(. == env.domain)'
+#!/usr/bin/env bash
+set -xeuo pipefail 
+
+export domain="${1}"
+docker info \
+    | jq -Rs '
+  split("Insecure Registries:\n")[-1]
+| [splits("\n[^ ]")][0]
+| ltrimstr(" ")
+| split("\n ")
+| any(. == env.domain)
+'
