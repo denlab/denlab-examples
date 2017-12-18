@@ -12,12 +12,13 @@ curl: up
 	curl --cacert cert.pem -X GET https://$(domain)/v2/_catalog
 	curl --cacert cert.pem -X GET https://$(domain)/v2/my-alpine/tags/list
 
-push:  domainAllowed
+# push:  domainAllowed
+push:
 	$(begin)
 	docker pull alpine:3.6
-	docker tag  alpine:3.6 $(shell cat $<)/my-alpine
-	docker push $(shell cat $<)/my-alpine
-	docker pull $(shell cat $<)/my-alpine
+	docker tag  alpine:3.6 $(domain)/my-alpine
+	docker push $(domain)/my-alpine
+	docker pull $(domain)/my-alpine
 
 # <docker-insecure registry> ---------------------------------------------------
 
@@ -96,23 +97,26 @@ certs/domain.crt: cert.pem | certs
 	$(begin)
 	cp $^ $@
 
+cert.pem key.pem: .sentinel
+	$(begin)
+
+.sentinel:
+	$(begin)
+	openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+	touch .sentinel
+
+.PHONY: _domain
+_domain:
+	$(begin)
+	echo $(domain)
+
 # </certs-targets> --------------------------------------------------------------
 
 auth/nginx.htpasswd:
 	$(begin)
 	docker run --rm --entrypoint htpasswd registry:2 -Bbn testuser testpassword > auth/nginx.htpasswd
 
-cert.pem:
-	$(begin)
-	openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 
-# cert.pem:
-#		$(begin)
-#		echo -e '\n\n\n\n\n\n\n' | openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+clean_rm: files=docker_info docker_is_allow_insecure_registries domain callgrind.* cert.* certs clean_rm_files data key.pem *.pem data certs clean_rm_files .sentinel
 
 include mkutil/clean
-
-clean_rm: files=docker_info docker_is_allow_insecure_registries domain callgrind.* cert.* certs clean_rm_files data key.pem *.pem
-clean_rm:
-	$(begin)
-	rm -rf data certs clean_rm_files

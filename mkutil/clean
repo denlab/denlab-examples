@@ -49,6 +49,6 @@ clean_check:
 clean_rm: clean_rm_files
 	$(begin)
 	$(if $(shell cat $<),,$(error $(clean_rm_error)))
-	rm -f $(shell cat $<)
+	rm -rf $(shell cat $<)
 
 # </clean> ---------------------------------------------------------------------
