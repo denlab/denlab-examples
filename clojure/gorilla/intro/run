@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -xeuo pipefail
+
+cd $(dirname $(readlink -f $0))
+cd gorilla
+lein gorilla
