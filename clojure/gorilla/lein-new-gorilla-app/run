@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cd $(dirname $(readlink -f $0))
+cd gorilla-app
+echo
+echo append to the url : '/worksheet.html?filename=ws1.clj'
+echo
+lein gorilla
