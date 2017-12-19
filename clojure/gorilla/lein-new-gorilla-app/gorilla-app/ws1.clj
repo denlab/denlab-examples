@@ -14,9 +14,17 @@
 (ns ws1
   (:require [gorilla-plot.core :as plot])
   (:use [gorilla-repl table])
-  (:require [clojure.data.json :as json])
+  (:require [clojure.data.json :as json]
+            [clojure.string    :as str]
+            [clojure.repl      :as repl]
+            [clojure.data.json :as json]
+            )
+  
   )
 ;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-nil'>nil</span>","value":"nil"}
+;; <=
 
 ;; @@
 (plot/histogram (repeatedly 100 rand))
@@ -85,8 +93,35 @@
 ;; <=
 
 ;; @@
-(require 'clojure.data.json :as 'json)
+
+(defn transpose [m]
+  (apply mapv vector m))
 ;; @@
+
+;; @@
+(def url "https://github.com/JonyEpsilon/gorilla-repl.git")
+;; @@
+;; =>
+;;; {"type":"html","content":"<span class='clj-var'>#&#x27;ws1/url</span>","value":"#'ws1/url"}
+;; <=
+
+;; @@
+
+(into {} (transpose [[:proto :url] (str/split url #"//")]))
+
+(println  {:a 1 :b 2})
+
+(into [1 2 3 4] {} )
+
+(def protoUrl 
+  (into {} 
+        (transpose [[:proto :url] (str/split url #"//")])))
+
+(:url protoUrl)
+;; @@
+;; =>
+;;; {"type":"list-like","open":"<span class='clj-map'>{</span>","close":"<span class='clj-map'>}</span>","separator":", ","items":[{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:proto</span>","value":":proto"},{"type":"html","content":"<span class='clj-string'>&quot;https:&quot;</span>","value":"\"https:\""}],"value":"[:proto \"https:\"]"},{"type":"list-like","open":"","close":"","separator":" ","items":[{"type":"html","content":"<span class='clj-keyword'>:url</span>","value":":url"},{"type":"html","content":"<span class='clj-string'>&quot;github.com/JonyEpsilon/gorilla-repl.git&quot;</span>","value":"\"github.com/JonyEpsilon/gorilla-repl.git\""}],"value":"[:url \"github.com/JonyEpsilon/gorilla-repl.git\"]"}],"value":"{:proto \"https:\", :url \"github.com/JonyEpsilon/gorilla-repl.git\"}"}
+;; <=
 
 ;; @@
 
