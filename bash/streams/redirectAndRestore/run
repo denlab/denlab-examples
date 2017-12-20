@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+LOGFILE=logfile.txt
+
+echo "redirecting stdout to logile" | t.recolor 128 '.*'
+exec 6>&1           # Link file descriptor #6 with stdout.
+                    # Saves stdout.
+exec > $LOGFILE     # stdout replaced with file "logfile.txt".
+
+# ----------------------------------------------------------- #
+# All output from commands in this block sent to file $LOGFILE.
+
+echo -n "Logfile: "
+date
+echo "-------------------------------------"
+echo
+
+echo "Output of \"ls -al\" command"
+echo
+ls -al
+
+# ----------------------------------------------------------- #
+
+exec 1>&6 6>&-      # Restore stdout and close file descriptor #6.
+
+echo
+echo "== stdout now restored to default == " | t.recolor 128 '.*'
+echo
+ls -al
+echo
+
+
+echo "== content of log file: == " | t.recolor 128 '.*'
+cat $LOGFILE | sed -r 's/.*/logfile> &/'

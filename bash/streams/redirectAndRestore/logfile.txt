@@ -1,0 +1,10 @@
+Logfile: mercredi 20 décembre 2017, 18:32:45 (UTC+0100)
+-------------------------------------
+
+Output of "ls -al" command
+
+total 16
+drwxrwxr-x 2 u u 4096 déc.  20 18:32 .
+drwxrwxr-x 3 u u 4096 déc.  20 18:27 ..
+-rw-rw-r-- 1 u u  124 déc.  20 18:32 logfile.txt
+-rwxrwxr-x 1 u u  850 déc.  20 18:32 run
