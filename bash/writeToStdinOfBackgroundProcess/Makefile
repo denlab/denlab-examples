@@ -1,6 +1,9 @@
 
 info:
+	if [[ ]]
 	bash -c 'cat serv-info/serv-input-cat-pid | tee >(cat 1>&2) | x echo "ps f {}" | grep -C3 '
+
+
 
 
 srv-info: 

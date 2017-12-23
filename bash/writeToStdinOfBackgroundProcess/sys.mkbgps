@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+. $(dirname $(readlink -f ${BASH_SOURCE}))/header.sh
+. util.sh
+
+sys.mkbgps.test() {
+    u.info "no tests yet"
+}
+
+sys.mkbgps.usage() {
+    cat <<EOF
+
+Create a background process with the given command.
+- Usage  : ${name} <cmdToRunInBg> 
+- Example: ${name} bash
+           # Run bash in background:
+           # - use the fifo bash-stdin to send data on stdin:
+           echo ls > bash-stdin  
+           # - kill bash-stdin-pid to kill the background process:
+           kill $(cat bash-stdin-pid)
+
+EOF
+}
+
+sys.mkbgps.main() {
+    u.route "$@"
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  sys.mkbgps.main "$@"
+fi
