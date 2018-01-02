@@ -1,0 +1,8 @@
+*.dot
+*.svg
+callgrind.out.*
+cryptocurr*/
+*_fileid*
+gdrive
+shared-dir/
+*~
