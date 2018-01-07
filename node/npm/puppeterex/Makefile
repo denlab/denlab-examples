@@ -1,17 +1,19 @@
-start:
-	npm start
+include mkutil/bash
 
-stop: server-port
-	fuser -n tcp -k $$(cat $<)
+d := build
 
-query: server-port
-	curl http://localhost:$(shell cat $<)
+$(shell mkdir -p $d)
 
-server-port:
-	 cat server.js | jq -Rs 'gsub("\\s+";"") | split("listen(") | .[-1] | [splits("[^0-9]")][0]' | jq -r . > $@ 
+# <targets> ------------------------------------
 
-install:
-	npm install
+$d/start:
+	{ unbuffer /opt/google/chrome-beta/chrome --remote-debugging-port=9222 ; } &> $@ & 
 
-clean:
-	rm -f server-port
+$d/ws: $d/start
+	jq -Rr 'capture(".* (?<ws>ws://[^ ]+)( .*|$$)").ws' $< > $@
+
+killall:
+	pkill chrome
+
+search: $d/ws
+	 ws='$(shell cat $<)' node search.js
