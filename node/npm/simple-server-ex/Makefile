@@ -7,6 +7,7 @@ stop: server-port
 query: server-port
 	curl http://localhost:$(shell cat $<)
 
+.PHONY: server-port
 server-port:
 	 cat server.js | jq -Rs 'gsub("\\s+";"") | split("listen(") | .[-1] | [splits("[^0-9]")][0]' | jq -r . > $@ 
 
