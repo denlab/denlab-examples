@@ -11,6 +11,7 @@
   "dependencies": {
     "archy": "^1.0.0",
     "circular": "^1.0.5",
+    "method-web-socket-expose": "^1.0.64",
     "pretty-tree": "^1.0.0",
     "puppeteer": "^0.13.0",
     "treeify": "^1.0.1"
