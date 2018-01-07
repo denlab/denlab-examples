@@ -9,3 +9,4 @@ Usage:
                 [-t|--show-update-time]       Show the last modified time of ~/.gi_list (where the list of available types is stored)
                 [-u|--update-list]            Update ~/.gi_list
 node_modules
+example.png
