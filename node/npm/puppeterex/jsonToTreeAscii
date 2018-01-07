@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+. header.sh
+. util.sh
+
+jsonToTree.test() {
+    u.info "no tests yet"
+}
+
+jsonToTree.usage() {
+    cat <<EOF
+
+Descr TODO
+- Usage  : TODO
+- Example: TODO
+
+EOF
+}
+
+jsonToTree.main() {
+    u.route --allow-no-args "$@"
+     nodeName=label childrenName=nodes jsonToTree | node jsontreeToTree.js
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  jsonToTree.main "$@"
+fi

@@ -34,7 +34,10 @@ const puppeteer = require('puppeteer');
     // });
 
 // const browser = await puppeteer.launch();
-
+    const pages = await browser.pages();
+    for (i<0; i< pages.length; i++) {
+        console.log(pages[i])
+    }
 const page = await browser.newPage();
 
 await page.goto('https://developers.google.com/web/');
