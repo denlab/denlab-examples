@@ -17,3 +17,6 @@ killall:
 
 search: $d/ws
 	 ws='$(shell cat $<)' node search.js
+
+clean:
+	rm -rf build
