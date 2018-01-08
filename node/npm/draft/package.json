@@ -1,0 +1,19 @@
+{
+  "name": "draft",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cli-highlight": "^1.2.3",
+    "get-stdin": "^5.0.1",
+    "highlight.js": "^9.12.0",
+    "marked": "^0.3.9",
+    "marked-terminal": "^2.0.0"
+  }
+}
