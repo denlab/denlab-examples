@@ -1,0 +1,8 @@
+ifeq ($(cmd),)
+$(info cmd is not defined)
+else
+$(info cmd is defined)
+endif
+
+a:
+	@:
