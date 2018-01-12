@@ -1,0 +1,21 @@
+version: '3'
+services:
+
+  www:
+    image: "riggerthegeek/docker-virtual-host:latest"
+    environment:
+      - VH_HOSTS=target1.domain.com=http://target1,target2.domain.com=http://target2
+    links:
+      - target1
+      - target2
+    depends_on:
+      - target1
+      - target2
+    ports:
+      - "3000:3000"
+
+  target1:
+    image: "nginx:alpine"
+
+  target2:
+    image: "httpd:alpine"
