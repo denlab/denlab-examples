@@ -1,0 +1,20 @@
+default: &DEFAULT
+  URL:          stooges.com
+  throw_pies?:  true  
+  stooges:  &stooge_list
+    larry:  first_stooge
+    moe:    second_stooge
+    curly:  third_stooge
+  
+development:
+  <<: *DEFAULT
+  URL:      stooges.local
+  stooges: 
+    shemp: fourth_stooge
+    
+test:
+  <<: *DEFAULT
+  URL:    test.stooges.qa
+  stooges: 
+    <<: *stooge_list
+    shemp: fourth_stooge

@@ -1,0 +1,11 @@
+persons:
+  - firstname: john
+    lastname: doe
+    age: 33
+  - firstname: lucy
+    lastname: fer
+    age: 666
+  - firstname: john
+    lastname: doe
+    age: 33
+  
