@@ -1,16 +1,13 @@
-query:
+#: query the server to evaluate code
+query: start
 	curl -d '(range 10)' http://localhost:8080
 
-query-stdin:
-	curl -d @- http://localhost:8080 <<< '(range 10)'
-
+#: start the server
 start:
-	unbuffer lein run -m simplehttp.core
+	bash -xeuo pipefail -c 'unbuffer lein run -m simplehttp.core & pid=$$! && echo $$pid > $@ ; wait ; rm $@' &
+	shutil/wait-for-it.sh --host=localhost --port=8080
 
+#: stop the server
 stop:
-	fuser -n tcp 8080 -k
+	! fuser -n tcp 8080 || fuser -n tcp 8080 -k
 
-status:
-	fuser -n tcp 8080
-
-jjj
