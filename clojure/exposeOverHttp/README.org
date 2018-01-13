@@ -1,0 +1,9 @@
+Run with: 
+#+BEGIN_SRC sh
+# start the server
+make start & 
+# wait to be up 
+make status
+# run a http query on it
+make query
+#+END_SRC
