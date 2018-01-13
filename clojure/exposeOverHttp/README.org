@@ -6,4 +6,6 @@ make start &
 make status
 # run a http query on it
 make query
+# stop the server
+make stop
 #+END_SRC
