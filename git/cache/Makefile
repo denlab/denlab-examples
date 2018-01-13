@@ -11,6 +11,9 @@ with_cache := with_cache/$(curr_repo_dir)
 no_cache := no_cache/$(curr_repo_dir)
 
 $(info - curr_repo_dir=$(curr_repo_dir))
+$(info - with_cache=$(with_cache))
+$(info - no_cache=$(no_cache))
+
 $(shell mkdir -p $(cache_path))
 
 
@@ -27,27 +30,21 @@ $(cache_curr_remote):
 	&& git remote add denlab_denlab-examples  $(curr_repo) \
 	&& git fetch --all
 
+last_commit = cd $@ && git log | head -1 || :
+
 $(with_cache): git_url $(cache_curr_remote)
-	/usr/bin/time																	\
-	bash -xeuo pipefail -c \
-  "{																							\
-	  cd $(dir $@) && git clone --reference $(cache_path) $(shell cat $<) ; \
-	}"																							\
-	|& grep elapsed | jq -Rr 'capture(" (?<elapsed>.:.....)elapsed ").elapsed' | tee $@
+	time ( git clone --reference ~/.gitcaches/reference $(shell cat $<) $@ )
+	$(last_commit)
 
 $(no_cache): git_url
-	/usr/bin/time																	\
-	bash -xeuo pipefail -c \
-  "{																							\
-	  cd $(dir $@) && git clone $(shell cat $<) ; \
-	}"																							\
-	|& grep elapsed | jq -Rr 'capture(" (?<elapsed>.:.....)elapsed ").elapsed' | tee $@
+	time ( git clone $(shell cat $<) $@)
+	$(last_commit)
 
 git_url:
 	git remote -v | jq -R . | jq -rs '.[-1] | ltrimstr("origin\t") | split(" ")[0]' | tee $@
 
-git_url:
-	echo "file://$$(git rev-parse --show-toplevel)" | tee $@
+# git_url:
+# 	echo "file://$$(git rev-parse --show-toplevel)" | tee $@
 
 clean:
 	cat .gitignore | xargs rm -rf 
