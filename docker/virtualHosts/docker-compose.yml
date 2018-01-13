@@ -4,7 +4,8 @@ services:
   www:
     image: "riggerthegeek/docker-virtual-host:latest"
     environment:
-      - VH_HOSTS=target1.domain.com=http://target1,target2.domain.com=http://target2
+      - VH_HOSTS=lve.me=http://google.com,lve.m2=http://google.com
+      # - VH_HOSTS=target1.domain.com=http://target1,target2.domain.com=http://target2
     links:
       - target1
       - target2
