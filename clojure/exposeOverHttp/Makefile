@@ -12,3 +12,5 @@ stop:
 
 status:
 	fuser -n tcp 8080
+
+jjj
