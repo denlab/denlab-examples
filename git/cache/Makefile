@@ -48,3 +48,6 @@ git_url:
 
 git_url:
 	echo "file://$$(git rev-parse --show-toplevel)" | tee $@
+
+clean:
+	cat .gitignore | xargs rm -rf 
