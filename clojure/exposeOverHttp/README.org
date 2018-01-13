@@ -1,9 +1,17 @@
-Run with: 
+* Expose a clojure process over http 
+** Running
+   - Simply run: 
+     #+BEGIN_SRC sh
+     make
+     #+END_SRC
+     - It will: 
+       - Start the server
+       - Send a request to evluate clojure code
+** Run more targets
+
 #+BEGIN_SRC sh
 # start the server
 make start & 
-# wait to be up 
-make status
 # run a http query on it
 make query
 # stop the server
