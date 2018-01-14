@@ -1,0 +1,9 @@
+#+TITLE: docker: traeffik: route http by url prefix
+
+Show how to user Traefik with Docker to route HTTP based on url prefix.
+
+* Running
+#+BEGIN_SRC sh
+cd traefik
+make
+#+END_SRC
