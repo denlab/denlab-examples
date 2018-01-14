@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+  whoami1:
+    image: emilevauge/whoami
+    networks:
+      - web
+    labels:
+      - "traefik.backend=whoami1"
+      - "traefik.frontend.rule=PathPrefixStrip:/whoami1/"
+  whoami2:
+    image: emilevauge/whoami
+    networks:
+      - web
+    labels:
+      - "traefik.backend=whoami2"
+      - "traefik.frontend.rule=PathPrefixStrip:/whoami2/"
+
+networks:
+  web:
+    external:
+      name: traefik_webgateway
