@@ -60,3 +60,27 @@ console.log(chalk`
 `);
 console.log(chalk.bold.rgb(10, 100, 200)('Hello!'));
 console.log(chalk`{bold.rgb(10,100,200) Hello!}`);
+
+
+
+
+var gradient = require('gradient-string');
+
+console.log(gradient('cyan', 'pink')('Hello world!'));
+// Initialize a gradient
+// Using varargs
+var coolGradient = gradient('red', 'green', 'blue');
+
+// Using array
+coolGradient = gradient(['#FF0000', '#00FF00', '#0000FF']);
+// The colors are parsed with TinyColor, multiple formats are accepted.
+
+// Use a gradient
+let coolString = coolGradient('This is a fancy string!');
+console.log(coolString);
+// Built-in gradients
+// Usage
+gradient = require('gradient-string');
+
+// Use the rainbow gradient
+console.log(gradient.rainbow('I love gradient-strings!'))
