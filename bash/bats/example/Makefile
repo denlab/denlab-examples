@@ -1,4 +1,6 @@
-nodes_modules: 
-	npm install -i bats
+nodes_modules:
+	npm i
+	touch $@
+
 install: node_modules
 	@:
