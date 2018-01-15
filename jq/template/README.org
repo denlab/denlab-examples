@@ -1,0 +1,11 @@
+from https://github.com/stedolan/jq/wiki/Cookbook#using-jq-as-a-template-engine
+
+* jqVariablesAsTemplateVariables              
+from the cookbook
+* arbitraryStringsAsTemplateVariables         
+from the cookbook
+* arbitraryStringsWithPathAsTemplateVariables 
+alternative to arbitraryStringsAsTemplateVariables, cannot have value / template keys collisions
+but add complexity 
+and if the template is known in advance then collision can be avoided upfront
+
