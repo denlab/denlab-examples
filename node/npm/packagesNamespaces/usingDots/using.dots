@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+using.dots.main() {
+:
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  using.dots.main "$@"
+fi
