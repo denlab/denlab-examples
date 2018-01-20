@@ -1,0 +1,10 @@
+- region: West US
+  url: westus.api.cognitive.microsoft.com
+- region: East US 2
+  url: eastus2.api.cognitive.microsoft.com
+- region: West Central US
+  url: westcentralus.api.cognitive.microsoft.com
+- region: West Europe
+  url: westeurope.api.cognitive.microsoft.com
+- region: Southeast Asia
+  url: southeastasia.api.cognitive.microsoft.com
