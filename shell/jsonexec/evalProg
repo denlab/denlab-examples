@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -xveuo pipefail
+
+rq -yJ < ex.yml \
+    | jq '
+.
+| .args    = {startUrl: "file://\(env.PWD)/ex.yml"}
+| .argsStr = (.args
+               | to_entries
+               | map(.key + "=" + (.value|@sh))
+               | join(" \\\n")
+             )
+| .cmdStr  = (.prog.cmd)
+| .str     = ( .argsStr + " bash -c \(.cmdStr|@sh)")
+| .str
+' \
+    | jq -r . \
+    | bash.safe -x

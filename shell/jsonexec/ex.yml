@@ -1,0 +1,6 @@
+prog:
+  name: getUrls
+  cmd: 'curl "$startUrl"'
+  vars:
+    - startUrl
+  
