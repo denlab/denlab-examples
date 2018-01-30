@@ -1,0 +1,3 @@
+Demonstrate the usage of an OpenLDAP in a docker container.
+
+Instructions are from: https://github.com/osixia/docker-openldap
