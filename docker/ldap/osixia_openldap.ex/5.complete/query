@@ -1,0 +1,10 @@
+(docker-compose port ldap 389 && net.ip -r) \
+| jq -R . \
+| jq -s '
+. as [$localhostPort,$ip]
+| $localhostPort
+| split(":") as [$host,$port]
+| "ldapsearch -x -h \($ip) -p \($port) -b dc=example,dc=org -D \"cn=admin,dc=example,dc=org\" -w JonSn0w"
+| "bash -c \(@sh)"' \
+| jq -r . \
+| bash.safe -xv
