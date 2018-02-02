@@ -1,0 +1,21 @@
+* Expose a node js process over http.
+** Running
+
+   To run the a test query with a running server, simply run:
+   #+BEGIN_SRC sh
+   make 
+   #+END_SRC
+** other targets
+
+   - run: 
+   #+BEGIN_SRC sh
+   make <target>
+   #+END_SRC
+   - Where target is in: 
+
+| target         | description                                      |
+|----------------+--------------------------------------------------|
+| =node_modules= | install the npm modules                          |
+| =query=        | send node code to evaluate to the running server |
+| =start=        | start the server                                 |
+| =stop=         | stop the server                                  |
