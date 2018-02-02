@@ -2,12 +2,12 @@ include mkutil/bash
 
 #: send node code to evaluate to the running server
 query: server-port start
-	curl -d @- http://localhost:8080 < chalk.js
+	. ./server-port && curl -d @- http://localhost:$$PORT < chalk.js
 
 #: start the server
 start: node_modules
-	bash -xeuo pipefail -c 'npm start & pid=$$! && echo $$pid > $@ ; wait ; rm $@' &
-	shutil/wait-for-it.sh --host=localhost --port=8080
+	. ./server-port && bash -xeuo pipefail -c 'npm start & pid=$$! && echo $$pid > $@ ; wait ; rm $@' &
+	. ./server-port && shutil/wait-for-it.sh --host=localhost --port=$$PORT
 
 #: install the npm modules
 node_modules:
@@ -15,4 +15,4 @@ node_modules:
 
 #: stop the server
 stop:
-	! fuser -n tcp 8080 || fuser -n tcp 8080 -k -INT
+	. ./server-port && ( ! fuser -n tcp $$PORT || fuser -n tcp $$PORT -k -INT)
