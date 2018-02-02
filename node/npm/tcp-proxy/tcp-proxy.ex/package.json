@@ -7,5 +7,10 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "circular": "^1.0.5",
+    "http-shutdown": "^1.2.0"
+  }
 }

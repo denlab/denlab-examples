@@ -1,18 +1,18 @@
-start:
-	npm start
+include mkutil/bash
 
-stop: server-port
-	fuser -n tcp -k $$(cat $<)
+#: send node code to evaluate to the running server
+query: server-port start
+	. ./server-port && curl -d @- http://localhost:$$PORT < chalk.js
 
-query: server-port
-	curl http://localhost:$(shell cat $<)
+#: start the server
+start: node_modules
+	. ./server-port && bash -xeuo pipefail -c 'npm start & pid=$$! && echo $$pid > $@ ; wait ; rm $@' &
+	. ./server-port && shutil/wait-for-it.sh --host=localhost --port=$$PORT
 
-.PHONY: server-port
-server-port:
-	 cat server.js | jq -Rs 'gsub("\\s+";"") | split("listen(") | .[-1] | [splits("[^0-9]")][0]' | jq -r . > $@ 
-
-install:
+#: install the npm modules
+node_modules:
 	npm install
 
-clean:
-	rm -f server-port
+#: stop the server
+stop:
+	. ./server-port && ( ! fuser -n tcp $$PORT || fuser -n tcp $$PORT -k -INT)
