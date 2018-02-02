@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  ser:
+    build: .
+    # environment:
+    #   LDAP_ORGANISATION: My Company
+    #   # LDAP_DOMAIN: my-company.com
+    #   LDAP_DOMAIN: example.org
+    #   # LDAP_ADMIN_PASSWORD: admin
+    #   LDAP_ADMIN_PASSWORD: JonSn0w
+    ports:
+      - "8080"
+
+
