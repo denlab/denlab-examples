@@ -5,9 +5,25 @@
             [compojure.core         :refer [defroutes GET POST]]
             [clojure.pprint         :as    pprint]
             [puget.printer          :as    pg]
+            [clj-http.client        :as    cli]
+            [environ.core           :as    env]
+            [clojure.string         :as    str]
             )
   ;; (:gen-class)
   )
+
+(defn q []
+  (let [host (env/env :jira-host)
+        user (env/env :jira-user)
+        pwd  (env/env :jira-password)
+        auth [user pwd]
+        args {:basic-auth auth, :as :json}
+        url  (str "http://" host "/rest/api/latest/user/search?startAt=0&maxResults=1000&username=")
+        ]
+    ;; (pg/cprint url {:basic-auth [user pwd]})
+    ;; (pg/cprint [args url])
+    (:body (cli/get url args))
+       ))
 
 (defn req-body-eval [req]
   {:status  200
