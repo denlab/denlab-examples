@@ -2,7 +2,8 @@
   :description "Compojure-api-examples"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [metosin/compojure-api "1.1.11"]]
-  :ring {:handler compojure.api.examples.handler/app}
+  :ring {:handler compojure.api.examples.handler/app
+         :nrepl   {:start? true}}
   :uberjar-name "examples.jar"
   :uberwar-name "examples.war"
   :profiles {:dev {:dependencies [[javax.servlet/javax.servlet-api "3.1.0"]]
