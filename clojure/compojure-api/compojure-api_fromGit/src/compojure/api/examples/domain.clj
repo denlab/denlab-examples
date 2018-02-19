@@ -6,6 +6,8 @@
 
 (s/defschema Total {:total Long})
 
+(s/defschema TotalStr {:total String})
+
 (def Topping (s/enum :cheese :olives :ham :pepperoni :habanero))
 
 (s/defschema Pizza {:id    Long

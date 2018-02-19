@@ -18,6 +18,12 @@
     (context "/math" []
       :tags ["math"]
 
+      (GET "/plus/plus" []
+           :return TotalStr
+           :query-params [x :- String, y :- String]
+           :summary "x+y with query-parameters"
+           (ok {:total (str x y)}))
+
       (GET "/plus" []
         :return Total
         :query-params [x :- Long, y :- Long]
