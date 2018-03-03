@@ -1,0 +1,6 @@
+key.pem
+cert.pem
+certs
+docker_info
+docker_is_allow_insecure_registries: ASCII text
+docker_is_allow_insecure_registries

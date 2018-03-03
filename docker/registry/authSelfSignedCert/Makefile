@@ -1,10 +1,20 @@
 include mkutil/bash
 include mkutil/begin
+include mkutil/varAssertDef
 
-domain := $(shell hostname -I | cut -d' ' -f1)
+domain           := $(shell hostname -I | cut -d' ' -f1)
 docker_host_cert := /etc/docker/certs.d/$(domain)/ca.crt
 
 # targets ----------------------------------------------------------------------
+# make certs.all
+# sudo make _certs
+# make domainAllowed
+# make up
+# make
+#
+.PHONY: all
+all:  certs.all _certs domainAllowed up push curl
+	@ :
 
 .PHONY: curl
 curl: up
@@ -14,10 +24,18 @@ curl: up
 
 push:  domainAllowed
 	$(begin)
+	$(call varAssertDef,host)
 	docker pull alpine:3.6
-	docker tag  alpine:3.6 $(shell cat $<)/my-alpine
-	docker push $(shell cat $<)/my-alpine
-	docker pull $(shell cat $<)/my-alpine
+	docker tag  alpine:3.6 $(host):5000/my-alpine
+	docker push            $(host):5000/my-alpine
+	docker pull            $(host):5000/my-alpine
+
+# <push to private registry> ---------------------------------------------------
+reg_push:
+	   docker pull alpine                          \
+	&& docker tag  alpine localhost:5000/my-alpine \
+	&& docker push        localhost:5000/my-alpine
+# </push to private registry> --------------------------------------------------
 
 # <docker-insecure registry> ---------------------------------------------------
 
@@ -28,7 +46,7 @@ docker_info:
 .PHONY: domainAllowed
 domainAllowed: docker_is_allow_insecure_registries
 	$(begin)
-	if ! $(shell cat $<); then                                                     \
+	@if ! $(shell cat $<); then                                                     \
 		echo -e '																																	\n'\
 	'domain $(domain) is not allowed as an insecure registry	\n'\
 	'- to add it:																																\n'\
@@ -115,4 +133,4 @@ include mkutil/clean
 clean_rm: files=docker_info docker_is_allow_insecure_registries domain callgrind.* cert.* certs clean_rm_files data key.pem *.pem
 clean_rm:
 	$(begin)
-	rm -rf data certs clean_rm_files
+	rm -rf data certs clean_rm_files cert.pem key.pem docker_info docker_is_allow_insecure_registries
