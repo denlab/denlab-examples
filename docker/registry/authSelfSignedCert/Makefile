@@ -1,10 +1,19 @@
 include mkutil/bash
 include mkutil/begin
 
-domain := $(shell hostname -I | cut -d' ' -f1)
+domain           := $(shell hostname -I | cut -d' ' -f1)
 docker_host_cert := /etc/docker/certs.d/$(domain)/ca.crt
 
 # targets ----------------------------------------------------------------------
+# make certs.all
+# sudo make _certs
+# make domainAllowed
+# make up
+# make
+#
+.PHONY: all
+all:  certs.all _certs domainAllowed up reg_push curl
+	@ :
 
 .PHONY: curl
 curl: up
@@ -19,6 +28,13 @@ push:  domainAllowed
 	docker push $(shell cat $<)/my-alpine
 	docker pull $(shell cat $<)/my-alpine
 
+# <push to private registry> ---------------------------------------------------
+reg_push:
+	   docker pull alpine                          \
+	&& docker tag  alpine localhost:5000/my-alpine \
+	&& docker push        localhost:5000/my-alpine
+# </push to private registry> --------------------------------------------------
+
 # <docker-insecure registry> ---------------------------------------------------
 
 docker_info:
@@ -28,7 +44,7 @@ docker_info:
 .PHONY: domainAllowed
 domainAllowed: docker_is_allow_insecure_registries
 	$(begin)
-	if ! $(shell cat $<); then                                                     \
+	@if ! $(shell cat $<); then                                                     \
 		echo -e '																																	\n'\
 	'domain $(domain) is not allowed as an insecure registry	\n'\
 	'- to add it:																																\n'\

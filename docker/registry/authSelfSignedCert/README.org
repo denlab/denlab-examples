@@ -1,0 +1,7 @@
+#+BEGIN_SRC sh
+make certs.all
+sudo make _certs
+make domainAllowed
+make up
+make
+#+END_SRC
