@@ -1,0 +1,32 @@
+# -*- makefile -*-
+
+################################################################################
+#
+# If the specified variable is emtpy:
+# - fail the build
+# - print:
+#   - an error message
+#   - and an example of how to specify the missing var
+#
+################################################################################
+
+# --------------------------------------------------------------------------------
+#
+# Usage example:
+#
+# run-cmd: build
+# 	$(call varAssertDef,cmd)
+# 	echo cmd=$(cmd)
+#
+# --------------------------------------------------------------------------------
+define varAssertDef
+$(if $($(1)),,\
+	$(error
+
+ERROR:
+- variable '$(1)' must be defined
+- example: make -f '$(firstword $(MAKEFILE_LIST))' $(MAKECMDGOALS) $(1)='value'
+
+	)
+)
+endef
