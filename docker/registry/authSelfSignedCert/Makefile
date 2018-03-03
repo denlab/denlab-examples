@@ -1,5 +1,6 @@
 include mkutil/bash
 include mkutil/begin
+include mkutil/varAssertDef
 
 domain           := $(shell hostname -I | cut -d' ' -f1)
 docker_host_cert := /etc/docker/certs.d/$(domain)/ca.crt
@@ -12,7 +13,7 @@ docker_host_cert := /etc/docker/certs.d/$(domain)/ca.crt
 # make
 #
 .PHONY: all
-all:  certs.all _certs domainAllowed up reg_push curl
+all:  certs.all _certs domainAllowed up push curl
 	@ :
 
 .PHONY: curl
@@ -23,10 +24,11 @@ curl: up
 
 push:  domainAllowed
 	$(begin)
+	$(call varAssertDef,host)
 	docker pull alpine:3.6
-	docker tag  alpine:3.6 $(shell cat $<)/my-alpine
-	docker push $(shell cat $<)/my-alpine
-	docker pull $(shell cat $<)/my-alpine
+	docker tag  alpine:3.6 $(host):5000/my-alpine
+	docker push            $(host):5000/my-alpine
+	docker pull            $(host):5000/my-alpine
 
 # <push to private registry> ---------------------------------------------------
 reg_push:
