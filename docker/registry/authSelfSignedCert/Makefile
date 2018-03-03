@@ -131,4 +131,4 @@ include mkutil/clean
 clean_rm: files=docker_info docker_is_allow_insecure_registries domain callgrind.* cert.* certs clean_rm_files data key.pem *.pem
 clean_rm:
 	$(begin)
-	rm -rf data certs clean_rm_files
+	rm -rf data certs clean_rm_files cert.pem key.pem docker_info docker_is_allow_insecure_registries
