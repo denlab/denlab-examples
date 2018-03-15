@@ -1,0 +1,7 @@
+#+STARTUP: logdone
+#+STARTUP: hidestars
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELED(c)
+
+
+* STARTED Example of using Docker multi-stage builds with docker-compose.
+

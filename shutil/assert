@@ -1,0 +1,200 @@
+#!/usr/bin/env bash
+. header.sh
+. util.sh
+. mod.sh
+
+assert.init.columns() {
+    export columns
+    columns="$(tput cols 2> /dev/null || echo 80)"
+}
+
+logOk() {
+    color="$col_ok" log OK
+}
+
+logWarn() {
+    msg="${1:-WARN}"
+    msg="${msg:0:6}"
+    color="$col_warn" log "${msg}"
+}
+
+log_n() {
+    echo -n "$(log_ "$@")" 1>&2
+}
+
+log_.color.true() {
+    GREP_COLOR="${color}" egrep --color=always '.*'
+}
+
+log_.color.false() {
+    cat
+}
+
+
+log_() {
+    if [[ -z "${colorLog:-}" ]]; then
+        export colorLog
+        if egrep --color=always '.*' <<< '' &> /dev/null ; then
+            colorLog=true
+        else
+            colorLog=false
+        fi
+    fi
+    echo "$@" \
+        | color="${color:-01;34}" log_.color.${colorLog}
+}
+
+log() {
+    log_ "$@" 1>&2
+}
+
+assert.test() {
+    assert 'testSuccessPass' echo foo
+    assert 'testOneWordCmd' ls
+    assert 'testSuccessFailShouldFail' bash -c "! assert 'fail' ls ljlkjjj"
+    assert --ignore 'testIgnore' ls lkjkljlkjlkj
+}
+
+assert.usage() {
+    cat <<EOF
+
+Assert the given command satisfy the given requirement, rc=0 if statisfied rc<>0 otherwise.
+Descr TODO
+- Usage  : ${name} <testDescr> <requirement> <cmd>
+- Example: ${name} currDirHas3Items success bash -c 'ls | wc -l | grep 3'
+- Requirements:
+  - success: rc=0
+  - failure: rc<>0
+
+EOF
+}
+
+assert.req.check.success() {
+    quiet=false
+    if ${ignore}; then
+        return
+    fi
+    set +e
+    "$@" &> "${tmp}/out"
+    rc=$?
+    set -e
+    if [[ $rc -ne 0 ]]; then
+        logKo.noFail
+        u.info "  - Assertion failed:
+    - Expected   : rc=0
+    - But was    : ${rc}
+    - For cmd    : '$@'
+    - output     :
+$(sed 's/.*/      - &/' ${tmp}/out)
+"
+        rm "${tmp}/out"
+        exit 1
+    fi
+}
+
+assert.req.ls() {
+    declare -F | sed -r 's/^declare -f //' \
+        | egrep "^${name}.req.check." \
+        | sed -r "s/^${name}.req.check.//"
+}
+
+assert.log.check() {
+    lineSize=${columns:-80}
+    if [[ ${lineSize} -gt ${maxLineSize} ]]; then
+        lineSize=${maxLineSize}
+    fi
+    lineSize=$(($lineSize - 10))
+    if [[ -z "${line:-}" ]]; then
+        export line
+        line=''
+        for ((i=0; i < ${lineSize:-80}; i++)); do line+='.'; done
+    fi
+
+    PROC_NAME="${1}"
+    printf "%s %s " $PROC_NAME "${line:${#PROC_NAME}}" 1>&2
+}
+
+assert.args.check() {
+    minArg=2
+    if [[ $# -lt ${minArg} ]]; then
+        u.info "ERROR:
+- function: $FUNCNAME
+- expected at least ${minArg} args
+- but was: $#
+- args: $@"
+        return 1
+    fi
+}
+
+logKo() {
+    logKo.noFail
+    return 1
+}
+
+logKo.noFail() {
+    color="$col_ko" log KO
+}
+
+assert.init() {
+    export interactiveTimeoutSec=5
+    export                            \
+        col_defaultForegroundColor=39 \
+        col_black=30                  \
+        col_red=31                    \
+        col_green=32                  \
+        col_yellow=33                 \
+        col_blue=34                   \
+        col_magenta=35                \
+        col_cyan=36                   \
+        col_lightGray=37              \
+        col_darkGray=90               \
+        col_lightRed=91               \
+        col_lightGreen=92             \
+        col_lightYellow=93            \
+        col_lightBlue=94              \
+        col_lightMagenta=95           \
+        col_lightCyan=96              \
+        col_white=97
+    export col_ok='01;32'
+    export col_ko='01;41'
+    export col_warn='01;33'
+    export col_white='01;37'
+    export col_white='01;37'
+    export tmp="$(mktemp -d)"
+    export quiet=true
+    export columns
+    export maxLineSize=80
+    columns="$(tput cols)"
+}
+
+assert.tearDown() {
+    rm -rf "${tmp}"
+}
+
+assert.main() {
+    # trap '(read -p "[$BASH_SOURCE:$LINENO] $BASH_COMMAND?")' DEBUG
+    export quiet=false
+    u.route "$@"
+    quiet=true f args.check "$@"
+    declare ignore=false
+    if [[ "${1:-}" == "--ignore" ]]; then
+        ignore=true
+        shift 1
+    fi
+    export assertName="${1}"
+    shift 1
+    quiet=true f init
+    ${assertQuiet:-false} || f log.check "- ${assertName}"
+    quiet=true f req.check.success "$@"
+    if ${ignore}; then
+        logWarn 'IGNORED'
+    else
+        ${assertQuiet:-false} || logOk
+    fi
+    f tearDown
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  assert.main "$@"
+fi
+ 

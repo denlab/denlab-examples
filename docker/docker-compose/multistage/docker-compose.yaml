@@ -1,0 +1,12 @@
+version: '2.3'
+services:
+  srv1:
+    build:
+      context: .
+      target: stage1
+  srv2:
+    build:
+      context: .
+      target: stage2
+
+
