@@ -1,0 +1,26 @@
+version: '3'
+services:
+  controller:
+    build: controller
+    links:
+      - client1
+      - client2
+  client1:
+    build: sshd_passwordless
+    links:
+      - nginx
+  client2:
+    build: sshd_passwordless
+    links:
+      - nginx
+  nginx:
+    build: nginx
+    links:
+      - protected_server
+  protected_server:
+    build: protected_server
+    links:
+      - unprotected_server
+  unprotected_server:
+    build: unprotected_server
+

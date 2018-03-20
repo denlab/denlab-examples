@@ -1,0 +1,56 @@
+Show an example of using nginx to whitelist certains hosts so that they can access a host protected with basic authent without specifiying a user/password.
+
+* Run
+
+Launch the tests containers and clients:
+#+BEGIN_SRC sh
+make
+#+END_SRC
+
+** Expected output
+
+#+BEGIN_SRC sh
+| - noWhitelist_client1UnauthorizedAccess shouldFail:                                ok
+| - noWhitelist_client2UnauthorizedAccess shouldFail:                                ok
+| - noWhitelist_client1AuthentAccess shouldSucceed:                                  ok
+| - noWhitelist_client2AuthentAccess shouldSucceed:                                  ok
+| map $remote_addr $auth {
+|         default $http_authorization;
+|         # client2 => 172.23.0.6:
+|         172.23.0.6      'Basic dXNlcjpwd2Q=';
+| }
+| 2018/03/22 17:46:38 [notice] 30#30: signal process started
+| - client2Whitelisted_client1UnauthorizedAccess shouldFail:                         ok
+| - client2Whitelisted_client2UnauthorizedAccess shouldSucceed:                      ok
+| - client2Whitelisted_client1AuthentAccess shouldSucceed:                           ok
+| - client2Whitelisted_client2AuthentAccess shouldSucceed:                           ok
+| map $remote_addr $auth {
+|         default $http_authorization;
+|         # client1 => 172.23.0.5:
+|         172.23.0.5      'Basic dXNlcjpwd2Q=';
+| }
+| 2018/03/22 17:46:38 [notice] 36#36: signal process started
+| - client1Whitelisted_client1UnauthorizedAccess shouldSucceed:                      ok
+| - client1Whitelisted_client2UnauthorizedAccess shouldFail:                         ok
+| - client1Whitelisted_client1AuthentAccess shouldSucceed:                           ok
+| - client1Whitelisted_client2AuthentAccess shouldSucceed:                           ok
+| map $remote_addr $auth {
+|         default $http_authorization;
+|         # client1 => 172.23.0.5:
+|         172.23.0.5      'Basic dXNlcjpwd2Q=';
+|         # client2 => 172.23.0.6:
+|         172.23.0.6      'Basic dXNlcjpwd2Q=';
+| }
+| 2018/03/22 17:46:39 [notice] 42#42: signal process started
+| - client1And2Whitelisted_client1UnauthorizedAccess shouldSucceed:                  ok
+| - client1And2Whitelisted_client2UnauthorizedAccess shouldSucceed:                  ok
+| - client1And2Whitelisted_client1AuthentAccess shouldSucceed:                       ok
+| - client1And2Whitelisted_client2AuthentAccess shouldSucceed:                       ok
+#+END_SRC
+
+* Stop and remove all
+
+#+BEGIN_SRC sh
+make down
+#+END_SRC
+
