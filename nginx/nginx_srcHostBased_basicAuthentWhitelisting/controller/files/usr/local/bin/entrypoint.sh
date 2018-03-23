@@ -2,42 +2,45 @@
 set -euo pipefail
 . common.sh
 
-whitelistToNginxMap() {
-    declare wl="$(cat)"
-    if [[ "${wl}" == '' ]]; then
-        echo
-        return
-    fi
-    echo "${wl}"            \
-        | sort              \
-        | xargs -n1 host -r \
-        | jq -R '
-  capture("^(?<host>[^ ]+) has address (?<ip>.*)$")
-| [
-      "# \(.host) => \(.ip):"
-    , "\(.ip)\t\(env.auth|@sh);"
-  ]
-'                               \
-        | jq -s '.
-| {body : .}
-| .body |= ([["default $http_authorization;"]] + .)
-| .body |= add
-| .map = (
-           (
-              ["map $remote_addr $auth {"]
-            + (.body | map("\t\(.)"))
-            + ["}"]
-           )
-         )
-'                               \
-        | jq -r '.map | join("\n")'
-}
+# whitelistToNginxMap() {
+#     declare wl="$(cat)"
+#     if [[ "${wl}" == '' ]]; then
+#         echo
+#         return
+#     fi
+#     echo "${wl}"            \
+#         | sort              \
+#         | xargs -n1 host -r \
+#         | jq -R '
+#   capture("^(?<host>[^ ]+) has address (?<ip>.*)$")
+# | [
+#       "# \(.host) => \(.ip):"
+#     , "\(.ip)\t\(env.auth|@sh);"
+#   ]
+# '                               \
+#         | jq -s '.
+# | {body : .}
+# | .body |= ([["default $http_authorization;"]] + .)
+# | .body |= add
+# | .map = (
+#            (
+#               [
+#                   "server { location / { proxy_set_header Authorization   $auth;   }}"
+#                 , "map $remote_addr $auth {"
+#               ]
+#             + (.body | map("\t\(.)"))
+#             + ["}"]
+#            )
+#          )
+# '                               \
+#         | jq -r '.map | join("\n")'
+# }
 
-nginxWhitelist() {
-            whitelistToNginxMap   \
-                | tee >(cat 1>&2) \
-                | ssh nginx "cat > /etc/nginx/conf.d/whitelist.conf && ${nginxReload}"
-}
+# nginxWhitelist() {
+#             whitelistToNginxMap   \
+#                 | tee >(cat 1>&2) \
+#                 | ssh nginx "cat > /etc/nginx/conf.d/whitelist.conf && ${nginxReload}"
+# }
 
 for h in client2:22              \
              client2:22          \
@@ -66,32 +69,31 @@ export client2 auth
 auth='Basic dXNlcjpwd2Q='
 client2=$(host -r client2 | jq -Rr 'capture("^(?<host>[^ ]+) has address (?<ip>.*)$").ip')
 
-nginxWhitelist <<< ''
+nginx_whitelist <<< ''
 
 expect ko 'noWhitelist_client1UnauthorizedAccess'            ssh client1 curl -sS --fail                 http://nginx
 expect ko 'noWhitelist_client2UnauthorizedAccess'            ssh client2 curl -sS --fail                 http://nginx
 expect ok 'noWhitelist_client1AuthentAccess'                 ssh client1 curl -sS --fail --user user:pwd http://nginx
 expect ok 'noWhitelist_client2AuthentAccess'                 ssh client2 curl -sS --fail --user user:pwd http://nginx
 
-nginxWhitelist <<< 'client2'
+nginx_whitelist <<< 'client2'
 
 expect ko 'client2Whitelisted_client1UnauthorizedAccess'     ssh client1 curl -sS --fail                 http://nginx
 expect ok 'client2Whitelisted_client2UnauthorizedAccess'     ssh client2 curl -sS --fail                 http://nginx
 expect ok 'client2Whitelisted_client1AuthentAccess'          ssh client1 curl -sS --fail --user user:pwd http://nginx
 expect ok 'client2Whitelisted_client2AuthentAccess'          ssh client2 curl -sS --fail --user user:pwd http://nginx
 
-nginxWhitelist <<< 'client1'
+nginx_whitelist <<< 'client1'
 
 expect ok 'client1Whitelisted_client1UnauthorizedAccess'     ssh client1 curl -sS --fail                 http://nginx
 expect ko 'client1Whitelisted_client2UnauthorizedAccess'     ssh client2 curl -sS --fail                 http://nginx
 expect ok 'client1Whitelisted_client1AuthentAccess'          ssh client1 curl -sS --fail --user user:pwd http://nginx
 expect ok 'client1Whitelisted_client2AuthentAccess'          ssh client2 curl -sS --fail --user user:pwd http://nginx
 
-nginxWhitelist <<< $'client1\nclient2'
+nginx_whitelist <<< $'client1\nclient2'
 
 expect ok 'client1And2Whitelisted_client1UnauthorizedAccess' ssh client1 curl -sS --fail                 http://nginx
 expect ok 'client1And2Whitelisted_client2UnauthorizedAccess' ssh client2 curl -sS --fail                 http://nginx
 expect ok 'client1And2Whitelisted_client1AuthentAccess'      ssh client1 curl -sS --fail --user user:pwd http://nginx
 expect ok 'client1And2Whitelisted_client2AuthentAccess'      ssh client2 curl -sS --fail --user user:pwd http://nginx
-
 

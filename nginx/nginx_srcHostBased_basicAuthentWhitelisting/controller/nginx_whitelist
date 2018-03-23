@@ -1,0 +1,84 @@
+#!/usr/bin/env bash
+. header.sh
+# . util.sh
+. mod.sh
+. util.route.sh
+. f.log.sh 
+
+nginx_whitelist.test() {
+    u.info "no tests yet"
+    false
+}
+
+nginx_whitelist.whitelistToNginxMap() {
+    declare wl="$(cat)"
+    if [[ "${wl}" == '' ]]; then
+        echo
+        return
+    fi
+    echo "${wl}"            \
+        | sort              \
+        | xargs -n1 host -r \
+        | jq -R '
+  capture("^(?<host>[^ ]+) has address (?<ip>.*)$")
+| [
+      "# \(.host) => \(.ip):"
+    , "\(.ip)\t\(env.auth|@sh);"
+  ]
+'                               \
+        | jq -s '.
+| {body : .}
+| .body |= ([["default $http_authorization;"]] + .)
+| .body |= add
+| .map = (
+           (
+             [
+                "map $remote_addr $auth {                   "
+              ]
+            + (.body | map("\t\(.)"))
+            + ["}"]
+            + [
+                  ""
+                # , "http {                                       "
+                , "  server {                                   "
+                , "    location / {                             "
+                , "      proxy_pass       http://protected_server:80;"
+                , "      proxy_set_header Host       $host;"
+                , "      proxy_set_header Authorization   $auth;"
+                , "    }                                        "
+                , "  }                                          "
+                # , "}                                            "
+              ]
+           )
+         )
+'                               \
+        | jq -r '.map | join("\n")'
+}
+
+nginx_whitelist.nginxWhitelist() {
+            f whitelistToNginxMap   \
+                | tee >(cat 1>&2) \
+                | ssh nginx "cat > /etc/nginx/conf.d/whitelist.conf && ${nginxReload}"
+}
+
+
+nginx_whitelist.usage() {
+    cat <<EOF
+
+Install a whitelist on a Nginx host.
+- Usage  : ${name} <<< conf host
+- Example: ${name} <<< '["host1","host2"]' nginx.example.com
+
+EOF
+}
+
+nginx_whitelist.main() {
+    export nginxReload='/usr/sbin/nginx -s reload'
+    export nginxActualConf='/usr/sbin/nginx -T'
+    u.route --allow-no-args "$@"
+    f nginxWhitelist
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  nginx_whitelist.main "$@"
+fi
