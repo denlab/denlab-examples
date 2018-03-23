@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+. header.sh
+. mod.sh
+. util.route.sh
+. f.log.sh
+
+nginx_whitelist.test.nominal() {
+    auth=AUTH f authMap <<< 'localhost
+localhost'
+    f server
+}
+
+nginx_whitelist.test.emptyHostsList() {
+    diff.color <(echo 'map $remote_addr $auth {
+    default $http_authorization;
+}') \
+         <(f authMap <<< '')
+}
+
+nginx_whitelist.test.ensureSetAuthHeader_present_cmd() {
+    echo '    #access_log  /var/log/nginx/host.access.log  main;
+    location / {
+        proxy_pass       http://protected_server:80;' \
+            | nginx_whitelist.ensureSetAuthHeader_present_cmd \
+            # | grep '    location / { $proxy_set_header Authorization $auth;'
+}
+
+nginx_whitelist.test() {
+    f test.nominal
+    f test.emptyHostsList
+    nginx_whitelist.test.ensureSetAuthHeader_present_cmd
+}
+
+nginx_whitelist.ensureSetAuthHeader_present_cmd() {
+     jq -Rr 'sub("^ +location +/ +{ *$";"    location / { proxy_set_header Authorization $auth;")'
+}
+
+nginx_whitelist.ensureSetAuthHeader_present() {
+    default=/etc/nginx/conf.d/default.conf
+    echo 'sed -r "s|^( +location +/ *\{ *)$|&proxy_set_header Authorization \$auth;|" -i.bak /etc/nginx/conf.d/default.conf' | ssh nginx 'bash -xveuo pipefail'
+}
+
+nginx_whitelist.ensureSetAuthHeader_absent() {
+    ssh nginx sed -r 's/^( +location +/ +{) +$proxy_set_header Authorization   $auth;/\1/' -i /etc/nginx/default.conf
+}
+
+nginx_whitelist.authMap() {
+        sort              \
+        | xargs -r -n1 host -r \
+        | jq -R '.
+| if (env.auth | not) then error("- Error: missing env var \"auth\"") else . end
+| capture("^(?<host>[^ ]+) has address (?<ip>.*)$")
+| [
+      "# \(.host) => \(.ip):"
+    , "\(.ip)\t\(env.auth|@sh);"
+  ]
+'                               \
+        | jq -s '.
+| {body : .}
+| .body |= ([["default $http_authorization;"]] + .)
+| .body |= add
+| .map = (
+           (
+             [
+                "map $remote_addr $auth {"
+              ]
+            + (.body | map("    \(.)"))
+            + ["}"]
+           )
+         )
+'                               \
+        | jq -r '.map | join("\n")'
+}
+
+nginx_whitelist.server() {
+    jq -n '
+    [
+        ""
+        , "  server {                                   "
+        , "    location / {                             "
+        , "      proxy_pass       http://protected_server:80;"
+        , "      proxy_set_header Host       $host;"
+        , "      proxy_set_header Authorization   $auth;"
+        , "    }                                        "
+        , "  }                                          "
+    ]
+' \
+       | jq -r 'join("\n")'
+
+}
+
+nginx_whitelist.nginxWhitelist_debug() {
+    if $debug; then
+        ssh nginx "bash -l -xveuo pipefail -c '                                                          \
+                     && cd /etc/nginx/conf.d                                                             \
+                     && ls | sort | xargs cat | egrep --color=always -A1 \"location.*\{|map|default|=>\" \
+                     && ${nginxReload}                                                                   \
+                  '
+                "
+
+    fi
+}
+
+nginx_whitelist.nginxWhitelist() {
+    declare whitelistPath='/etc/nginx/conf.d/aaa.whitelist.conf'
+        f authMap         \
+        | tee >(cat 1>&2) \
+        | ssh nginx " cat > ${whitelistPath} && ${nginxReload}"
+        debug=false
+        f nginxWhitelist_debug
+}
+
+nginx_whitelist.usage() {
+    cat <<EOF
+
+Install a whitelist on a Nginx host.
+- Usage  : ${name} <<< conf host
+- Example: ${name} <<< '["host1","host2"]' nginx.example.com
+
+EOF
+}
+
+nginx_whitelist.install() {
+    f ensureSetAuthHeader_present
+    f nginxWhitelist
+}
+
+nginx_whitelist.main() {
+    export nginxReload='/usr/sbin/nginx -s reload'
+    export nginxActualConf='/usr/sbin/nginx -T'
+    u.route --allow-no-args "$@"
+    f install
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  nginx_whitelist.main "$@"
+fi

@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+. util.route.sh
+
+# <fn def of some fn that are in util.sh which is not sourced>
+u.info() {
+    echo "$@" 1>&2
+}
+u.assert.getCount() {
+    echo 0
+}
+# </fn def of some fn that are in util.sh which is not sourced>
+
+sponge.usage() {
+    echo "
+Replace MoreUtils's sponge.
+
+- Usage: >stdin> ${name} <outFile>
+- Example: echo foo | ${name} outFile
+"
+}
+
+sponge.test() {
+    declare t="$(mktemp)"
+    seq 10 > $t
+    jq '. + 1' < $t | ${0} $t
+    if ! seq 2 11 | jq -e -s --slurpfile actual $t '. == $actual' > /dev/null; then
+
+        u.info "ERROR!
+- Some unit tests failed (at $FUNCNAME)
+"
+    else
+        u.info "Units tests OK"
+    fi
+}
+
+sponge.main() {
+    u.route "$@"
+    declare t="$(mktemp)"
+    declare f="${1}"
+    cat > "${t}"
+    mv "${t}" "${f}"
+}
+
+declare name=sponge
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+    sponge.main "$@"
+fi

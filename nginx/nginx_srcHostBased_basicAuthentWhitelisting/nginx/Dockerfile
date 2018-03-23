@@ -2,7 +2,7 @@ FROM nginx:1.13.9-alpine
 
 RUN apk update && apk add openssh-server openssh-keygen
 RUN apk update && apk add ngrep
-RUN apk update && apk add bash 
+RUN apk update && apk add bash grep 
 
 COPY files/etc/ssh /etc/ssh
 RUN find /etc/ssh -name '*key*' -exec chmod 600 {} \;
@@ -16,6 +16,7 @@ RUN passwd -d root                        \
 RUN apk update && apk add bind-tools
 
 COPY default.conf /etc/nginx/conf.d/default.conf
+# COPY default.conf /etc/nginx/conf.d/protected_server.conf
 
 EXPOSE 80
 
