@@ -1,0 +1,9 @@
+version: '3'
+services:
+  gdrive:
+    build: .
+    environment:
+      - 'gdocf_clientId'
+      - 'gdocf_secret'
+    command: google-drive-ocamlfuse -headless -id ${gdocf_clientId} -secret ${gdocf_secret}
+
