@@ -1,0 +1,8 @@
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELED(c)
+* STARTED Pragmatically access Google Drive files using google-drive-ocamelfuse. [66%]
+** DONE install google-drive-ocamelfuse
+   CLOSED: [2018-03-25 dim. 21:37]
+** DONE authorize google-drive-ocamelfuse to gdrive api
+   CLOSED: [2018-03-25 dim. 21:37]
+** STARTED mount gdrive as a local fs [0%]
+*** STARTED make fuse works in a alpine container
