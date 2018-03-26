@@ -1,3 +1,10 @@
 access gdrive api with nodejs.
 
 examples from : https://developers.google.com/drive/v3/web/quickstart/nodejs
+
+* TODO query gdrive with nodejs [33%]
+
+** DONE initialize the nodejs project 
+   CLOSED: [2018-03-26 lun. 20:08]
+** TODO make the quickstart wor
+** TODO download the correct client_secret.json
