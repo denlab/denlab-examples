@@ -54,3 +54,16 @@ make
 make down
 #+END_SRC
 
+* blacklist
+
+Blacklisting would work similarly.
+Example: 
+#+BEGIN_SRC sh
+# client1 => 172.26.0.5
+map $remote_addr:$http_authorization $auth {
+    ~172.26.0.5:.*  $http_authorization;
+    #~172.26.0.5:$   'none';
+    ~.*:$        'Basic dXNlcjpwd2Q=';
+    ~.*:.+       $http_authorization;
+}
+#+END_SRC
