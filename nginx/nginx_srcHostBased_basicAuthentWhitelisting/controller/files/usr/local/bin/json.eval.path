@@ -1,0 +1,133 @@
+#!/usr/bin/env bash
+. header.sh
+. assert.sh
+. mod.sh
+. with-tmpdir
+
+json.eval.path.test.simple2() {
+    jsondiffpatch.rc \
+        <(jq -n '[{a: ["foo"]},{a: ["bar"]}]') \
+        <(jq -n '[{a: "echo foo"},{a: "echo bar"}]' | ${name} ".[].a")
+}
+
+json.eval.path.test.simple() {
+    jsondiffpatch.rc \
+        <(jq -n '[{a: ["foo"]}]') \
+        <(jq -n '[{a: "echo foo"}]' | ${name} ".[].a")
+}
+
+json.eval.path.test.multiplInputs() {
+    jsondiffpatch.rc \
+        <(jq -n '[{a: ["foo"]}, {a: ["bar"]}],[{a: ["baz"]}]' | jq -s .) \
+        <(jq -n '[{a: "echo foo"}, {a: "echo bar"}],[{a: "echo baz"}]' | ${name} '.[].a' | jq -s .)
+}
+
+json.eval.path.test.nominal.runtest() {
+    echo "$1" > input
+    echo "$2" > args
+    echo "$3" > expected
+    ${name} "$(cat args)" <  input > actual
+    jsondiffpatch.rc expected actual
+}
+
+json.eval.path.test.nominal() {
+    f test.nominal.runtest \
+        '[{"cmd": "echo foo"},{"cmd": "echo bar"}]' \
+        '.[].cmd' \
+        '[{"cmd": ["foo"]},{"cmd": ["bar"]}]'
+}
+
+json.eval.path.test.nominal2() {
+    json.eval.path.test.nominal.runtest \
+        '{"url":"http://fubar","urlList":"seq 3"}' \
+        '.urlList' \
+        '{"url":"http://fubar","urlList":["1","2","3"]}'
+}
+
+json.eval.path.test.str() {
+    f test.nominal.runtest \
+        '"seq 3"' \
+        '.' \
+        '["1","2","3"]'
+}
+
+json.eval.path.test.strs() {
+    jsondiffpatch.rc \
+        <(jq -n '["1","2","3"],["1","2"]'        | jq -s .) \
+        <(echo $'"seq 3"\n"seq 2"' | ${name} '.' | jq -s .)
+}
+
+json.eval.path.test.nonreg() {
+    u.info "- $FUNCNAME"
+    with-tmpdir.main f test.nominal
+    with-tmpdir.main f test.nominal2
+    with-tmpdir.main f test.str
+    with-tmpdir.main f test.strs
+}
+
+json.eval.path.test() {
+    f test.simple
+    f test.simple2
+    f test.multiplInputs
+    f test.nonreg
+}
+
+json.eval.path.usage() {
+
+    cat <<EOF
+
+- Input:
+  - Json on stdin
+  - a path in jq format as argument
+- Output
+  - on stdout
+  - all element in path replaced by their evaluation as a shell expression
+
+- Usage  :  ${name} path <<< json
+- Example:  ${name} '.a' <<< '{"a": "echo foo"}'
+            #> {"a": "foo"}
+
+EOF
+}
+
+json.eval.path.main() {
+    # u.route --allow-no-args "$@"
+    u.route "$@"
+    export p="${1}"
+    jq '
+  {json: . , paths: [path('"${p}"')]}
+| .paths as $paths | .
+| .json  as $json | .
+| .cmd     = ( .
+               | .paths
+               |  map( .
+                       | . as $p
+                       | $json
+                       | getpath($p)
+                     )
+             )
+| .jsonCmd = [.json | tojson | "echo \(@sh)"]
+| .cmd    |= (map("\(.) | jqRs ."))
+| .cmd    |= (["{"] + . + ["} | jq -s ."])
+| .allCmd  = [["{"], .jsonCmd, .cmd, ["} | jq -s . "]]
+| .allCmd |= add
+' \
+        | jq -r '.allCmd | join("\n")' \
+        | bash.safe \
+        | jq '.
+| . as [$json,$results] | .
+| {$json,$results}
+| .paths        = (.json | [path('"${p}"')])
+| .pathsResults = ([.paths,.results] | transpose)
+| .json as $json | .
+| .result       = ( .
+                    | .pathsResults
+                    | reduce .[] as [$path,$result] ($json; setpath($path;$result))
+                  )
+' \
+        | jq '.result'
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+    json.eval.path.main "$@"
+fi

@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+. header.sh
+. util.route.sh
+
+with-tmpdir.usage() {
+    ############################################################################
+    cat <<EOF
+
+Run a command, but:
+- create a tmp dir
+- cd into it
+- execute the command
+- delete the tmpdir
+- note: the tmpdir is deleted even if the command is in error (rc<>0)
+
+- Usage:
+  - As a command: ${name} <cmd>
+  - As a lib    : . with-tmpdir && with-tmpdir.main <functionsOrCommands>'
+- Example:
+  - As a command: with-tmpdir bash -c "echo foo > out && cat out"
+  - As a lib    : bash -c '. with-tmpdir && f() { echo f > out && cat out; } && with-tmpdir.main f'
+
+EOF
+    ############################################################################
+}
+
+u.assertFileAbsent() {
+    declare f="${1}"
+    shift 1
+    if [[ -f ${f} ]]; then
+        u.info "
+Assertion failed!
+  - Expected file absent at: ${f}
+  - But found one
+"
+        exit 1
+    fi
+    u.assert.common.post
+}
+
+with-tmpdir.test.cmd() {
+    declare outFile=a
+    u.assertEq foo \
+               $(with-tmpdir bash -c "echo foo > ${outFile} ; cat ${outFile}")
+    u.assertFileAbsent $outFile
+}
+
+with-tmpdir.test.fn() {
+    declare outFile=a
+    f() {
+        echo f > a
+        cat a
+    }
+    u.assertEq f \
+               $(with-tmpdir.main f)
+    u.assertFileAbsent $outFile
+}
+
+with-tmpdir.test() {
+    with-tmpdir.test.cmd
+    with-tmpdir.test.fn
+}
+
+with-tmpdir.main() {
+    u.route "$@"
+    declare t=$(mktemp -d)
+    cd $t ; set +x
+    declare rc
+    set +e
+    "$@"
+    rc=$?
+    set -e
+    cd - > /dev/null
+    rm -rf $t
+    return ${rc}
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+    with-tmpdir.main "$@"
+fi

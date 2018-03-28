@@ -1,0 +1,19 @@
+{
+  "name": "ping",
+  "version": "1.0.0",
+  "description": "<!doctype html> <html lang=\"en\"> <head> <title></title> <!-- 2018-01-13 sam. 19:26 --> <meta charset=\"utf-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> <meta name=\"generator\" content=\"Org-mode\"> <meta name=\"author\" content=\"d\">",
+  "main": "server.js",
+  "dependencies": {
+    "circular": "^1.0.5",
+    "http": "0.0.0",
+    "http-shutdown": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+. $(dirname $(readlink -f ${BASH_SOURCE}))/header.sh
+. assert.sh
+. util.route.sh
+
+jqRs.test() {
+    t=$(mktemp -d)
+    cd $t
+    echo $'a\nb\nc' | jqRs -r 'map(. + .)[]' > actual
+    echo $'aa\nbb\ncc'                       > expected
+    # TODO uncomment when ready
+    # assert.files.content.eq expected actual
+    diff expected actual
+    cd - > /dev/null
+    rm -rf $t
+}
+
+jqRs.usage() {
+    cat <<EOF
+Equivalent to jq -R . | jq -s <jqArgs>
+
+- Usage  : ${name} <jqArgs>
+- Example: echo $'a\nb\nc' | jqRs -r 'map(. + .)[]'
+           #> aa
+           #> bb
+           #> cc
+EOF
+}
+
+jqRs.main() {
+    u.route "$@"
+    jq -R . | jq -s "$@"
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+    jqRs.main "$@"
+fi

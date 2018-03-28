@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+. header.sh
+. util.route.sh
+
+mk_hosts2ips.test() {
+    ./${name} <<< '- localhost
+- PARL26784.b2b.regn.net'
+
+}
+
+mk_hosts2ips.usage() {
+    cat <<EOF
+
+Ouput a nginx map host->ip
+- Usage  : ${name} <<< hosts
+- Example: ${name} <<< $'client1\nclient2'
+
+EOF
+}
+
+mk_hosts2ips.main() {
+    u.route --allow-no-args "$@"
+    rq -yJ \
+        | jq 'map({host: ., ips: "host -r \(.)"})' \
+        | json.eval.path  '.[].ips' \
+        | jq -r '.
+| .[].ips[] |= (split(" ")[-1])
+| map(.host as $host
+| .ips
+| map("\t\($host): \(.); "))
+| add
+| (
+    ["map $remote_addr $remote_host {"
+     , "\tdefault $remote_addr; " ]
+    + .
+    + ["}"]
+  )
+| join("\n")'
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  mk_hosts2ips.main "$@"
+fi

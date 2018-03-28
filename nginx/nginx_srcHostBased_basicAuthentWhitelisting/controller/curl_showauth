@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+. header.sh
+. util.route.sh
+
+curl_showauth.test() {
+    u.info "no tests yet"
+    false
+}
+
+curl_showauth.usage() {
+    cat <<EOF
+
+Curl and show the auth of the req
+Descr TODO
+- Usage  : TODO
+- Example: TODO
+
+EOF
+}
+
+curl_showauth.main() {
+    # u.route --allow-no-args "$@"
+    u.route "$@"
+ssh client1 curl --user a:b -sS --fail http://nginx | jq -r '.headers.authorization | split(" ")[-1]' | base64 -d | jq -Rc '{auth: .}'
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  curl_showauth.main "$@"
+fi
