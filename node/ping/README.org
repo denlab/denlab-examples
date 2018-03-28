@@ -1,0 +1,13 @@
+a node http server that replies the http requests it received as JSON.
+
+* Start/query server
+
+#+BEGIN_SRC sh
+make
+#+END_SRC
+
+* Stop server 
+
+#+BEGIN_SRC sh
+make stop
+#+END_SRC
