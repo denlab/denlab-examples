@@ -1,0 +1,2 @@
+nix+bazel 
+based from the post: https://www.tweag.io/posts/2018-03-15-bazel-nix.html
