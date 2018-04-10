@@ -1,9 +1,9 @@
 FROM nginx:1.13.9-alpine
 
-RUN apk update && apk add openssh-server openssh-keygen
 RUN apk update && apk add ngrep
 RUN apk update && apk add bash grep 
-
+# <passwordless openssh>
+RUN apk update && apk add openssh-server openssh-keygen
 COPY files/etc/ssh /etc/ssh
 RUN find /etc/ssh -name '*key*' -exec chmod 600 {} \;
 RUN passwd -d root                        \
@@ -12,6 +12,7 @@ RUN passwd -d root                        \
 -e 's/#(PasswordAuthentication yes)/\1/'  \
 -e 's/#(PermitRootLogin).*$/\1 yes/'      \
 -i /etc/ssh/sshd_config
+# </passwordless openssh>
 
 RUN apk update && apk add bind-tools
 
