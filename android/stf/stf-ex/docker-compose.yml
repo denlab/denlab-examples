@@ -1,0 +1,17 @@
+version: '3'
+services:
+  stf:
+    image: openstf/stf
+    command: stf local
+    environment:
+      RETHINKDB_PORT_28015_TCP: 'tcp://rethinkdb:28015'
+      RETHINKDB_ENV_DATABASE: 'stf'
+    ports:
+      - '7100:7100'
+      - '7110:7110'
+    links:
+      - rethinkdb
+  rethinkdb:
+    image: rethinkdb
+
+
