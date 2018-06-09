@@ -1,6 +1,3 @@
-run_test: service
-	docker-compose run $(shell cat $<) 'echo $PATH'
-
 .PHONY: up
 up: service									#: start all services
 	docker-compose up -d --build
