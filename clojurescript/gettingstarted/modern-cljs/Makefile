@@ -1,0 +1,2 @@
+compile:
+	boot cljs target
