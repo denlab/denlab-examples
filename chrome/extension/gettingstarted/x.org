@@ -1,0 +1,7 @@
+#+STARTUP: logdone
+#+STARTUP: hidestars
+#+TODO: TODO(t) STARTED(s) WAITING(w) | DONE(d) CANCELED(c)
+#+OPTIONS: num:0 whn:2 toc:4 H:3
+
+
+#+TITLE: title

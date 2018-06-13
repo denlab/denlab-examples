@@ -7,6 +7,13 @@
         "declarativeContent",
         "storage"
     ],
+ "content_scripts": [
+   {
+     "matches": ["https://*.google.com/*"],
+     "css": ["myStyles.css"],
+     "js": ["contentScript.js"]
+   }
+ ],
     "options_page": "options.html",
     "background": {
         "scripts": [
