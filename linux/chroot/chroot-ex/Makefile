@@ -1,4 +1,7 @@
 # <variables> --------------------------------------------------------------------------------
+
+SHELL       := /bin/bash
+.SHELLFLAGS := -euo pipefail -c
 d := build
 $(shell set -xv && mkdir -p $d)
 chroot_script_url := https://gist.githubusercontent.com/schnell18/7287068/raw/ec034572dd6c2d8af017060cf851b26c76049dae/create_chrootjail.sh
@@ -8,7 +11,13 @@ chroot_script     := $(notdir $(chroot_script_url))
 
 # <targets> --------------------------------------------------------------------------------
 all: $d/chroot
+	cd $d && tar cavf chroot.tar.xz chroot
 	tree build
+	du -sh build
+	du -sh build/*
+
+$d/chroot.tar.xz: $(shell find build/chroot -type f)
+	cd $d && tar cavf chroot.tar.xz chroot
 
 .PHONY: chroot_run
 chroot_run: $d/chroot
@@ -17,7 +26,7 @@ chroot_run: $d/chroot
 $d/chroot: Makefile
 	cp --parents /lib/ld-linux.so.2 /lib64/ld-linux-x86-64.so.2 `which bash` $@
 	ldd `which bash` | grep -v dynamic | cut -d " " -f 3 | sed 's/://'|sort|uniq | jqRs 'map(select(length>0))'
-
+	lib/sys.cp.withLibs ls cp rm cat mkdir ln grep cut sed vim ssh head tail which id find xargs git
 
 $d/$(chroot_script):
 	cd $(dir $@) && wget $(chroot_script_url)

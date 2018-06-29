@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+. header.sh
+. util.sh
+
+sys.cp.withLibs.test() {
+    u.info "no tests yet"
+    false
+}
+
+sys.cp.withLibs.usage() {
+    cat <<EOF
+
+Descr TODO
+- Usage  : TODO
+- Example: TODO
+
+EOF
+}
+
+sys.cp.withLibs.main() {
+    # u.route --allow-no-args "$@"
+    u.route "$@"
+    for i in "$@"; do
+        echo "${i}"
+    done \
+        | jq -cR '{bin: ., path: {eval: "which \(.) || :"} }
+ ' \
+        | json.eval \
+              | jq '
+.    | select(.path > 0)' \
+              | jq '.libs = {eval: "ldd \(.path) || :"}' \
+                   | json.eval \
+                         | jq ' .
+| .libs |= (if type == "string" then [.] else . end)
+| .libs[]
+| capture(" (?<path>/\\S+)\\s")
+| .path
+' \
+                              | jq -s 'unique
+| join(" \\\n\t")
+| "cp --parents \\\n\t\(.) \\\n\t build/chroot"' \
+                              | jq -r '.' \
+                              | bash.safe -xv
+
+                         # | jq '.libs[] ' 
+
+}
+
+if [[ "$0" == "$BASH_SOURCE" ]]; then
+  sys.cp.withLibs.main "$@"
+fi
