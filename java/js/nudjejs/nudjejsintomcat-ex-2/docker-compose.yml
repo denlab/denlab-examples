@@ -1,0 +1,5 @@
+version: '3'
+services:
+  nudjejsintomcat-ex-2:
+    build: .
+
