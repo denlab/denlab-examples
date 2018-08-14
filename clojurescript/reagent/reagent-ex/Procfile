@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/reagent-ex.jar clojure.main -m reagent-ex.server
