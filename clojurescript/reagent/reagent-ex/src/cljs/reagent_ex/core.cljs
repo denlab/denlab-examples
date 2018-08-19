@@ -51,7 +51,7 @@
     [simple-component]]])
 
 ;;   counting
-(def click-count (r/atom 0))
+(def click-count (atom 0))
 
 (defn counting-component []
   [:div
@@ -59,6 +59,27 @@
    @click-count ". "
    [:input {:type "button" :value "Click me!"
             :on-click #(swap! click-count inc)}]])
+
+;; xmlHttpReq --------------------------------------------------------------------------------
+
+(def xhr-state (atom {:data "not fetched"}))
+(defn xhr-fetch-data []
+  (js/setTimeout (fn [] (swap! xhr-state assoc :data "Fetched"))
+                 1000)
+)
+
+(defn xhr-component-wo-fetch []
+  [:div "state is: " (:data @xhr-state)]
+  ;; [:details
+  ;;  [:div
+  ;;   (:data (@xhr-state))
+  ;;   ]
+  ;;  [:summary "summaryTODO"]
+  ;;  ]
+  )
+(defn xhr-component []
+  (with-meta xhr-component-wo-fetch
+    {:component-did-mount (xhr-fetch-data)}))
 
 ;; -------------------------
 ;; Views
@@ -70,6 +91,9 @@
    [:details [:summary "lister-user"] [lister-user]]
    [:details [:summary "counting-component"] [counting-component]]
    [:details [:summary "nested-details"] [nested-details]]
+   ;; [:details [:summary "xhr-component"] [xhr-component]]
+   [:div [:div "xhr-component"] [xhr-component]]
+
 ])
 
 (defn about-page []

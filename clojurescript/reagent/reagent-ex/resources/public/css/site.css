@@ -5,8 +5,8 @@
   padding-top: 72px;
   -webkit-font-smoothing: antialiased;
   font-size: 1.125em;
-  color: #333;
-  line-height: 1.5em;
+  /* color: #333; */
+  /* line-height: 1.5em; */
 }
 
 h1, h2, h3 {
@@ -36,9 +36,9 @@ details>* {
     /* margin-left: 10px; */
     padding-left: 10px;
     /* background: yellow; */
-    border-color: black;
-    border-width: 1px;
-    border-style: solid;
+    /* border-color: black; */
+    /* border-width: 1px; */
+    /* border-style: solid; */
 
 }
 
@@ -47,5 +47,5 @@ details>* {
 /* } */
 
 details details {
-    background: rgba(0,0,0,.1);
+    background: rgba(0,0,0,.05);
 }
