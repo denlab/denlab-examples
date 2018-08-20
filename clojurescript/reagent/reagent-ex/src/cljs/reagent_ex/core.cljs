@@ -58,9 +58,10 @@
    "The atom " [:code "click-count"] " has value: "
    @click-count ". "
    [:input {:type "button" :value "Click me!"
-            :on-click #(swap! click-count inc)}]])
+            :on-click #(swap! click-count inc)}]]
+)
 
-;; xmlHttpReq --------------------------------------------------------------------------------
+;; <xmlHttpReq> ----------------------------------------------------------------
 
 (def xhr-state (atom {:data "not fetched"}))
 (defn xhr-fetch-data []
@@ -81,18 +82,55 @@
   (with-meta xhr-component-wo-fetch
     {:component-did-mount (xhr-fetch-data)}))
 
+;; </xmlHttpReq> ---------------------------------------------------------------
+
+;; <prnds> ---------------------------------------------------------------------
+
+(def prnds-state (atom {:person {:name "John" :lastName "Doe"}}))
+
+(defn prnds-component []
+  [:div
+   (str @prnds-state)]
+  )
+
+;; </prnds> --------------------------------------------------------------------
+
+;; <detailsum> -----------------------------------------------------------------
+(def detailsum (atom {:collapsed true}))
+
+(defn detailsum-component []
+  [:div
+   [:div (str "Internal state: " @detailsum)]
+   [:div 
+    (if (:collapsed @detailsum)
+      [:fieldset [:legend "aTitle"]]
+      [:fieldset [:legend "aTitle"]
+       "aContentField: aContentValue" [:br]
+       ]
+      )]
+   [:input {:type "button" :value "Click me!"
+            :on-click #(swap! detailsum (fn [x] (update-in x [:collapsed] not)))}]]
+  )
+
+;; </detailsum> ----------------------------------------------------------------
+
+
 ;; -------------------------
 ;; Views
 
 (defn home-page []
   [:div [:h2 "Welcome to reagent-ex"]
    [:div [:a {:href "/about"} "go to about page"]]
-   [:details [:summary "simple-parent"] [simple-parent]]
-   [:details [:summary "lister-user"] [lister-user]]
-   [:details [:summary "counting-component"] [counting-component]]
-   [:details [:summary "nested-details"] [nested-details]]
-   ;; [:details [:summary "xhr-component"] [xhr-component]]
-   [:div [:div "xhr-component"] [xhr-component]]
+   [:fieldset [:legend "Components examples"]  
+    [:details [:summary "simple-parent"] [simple-parent]]
+    [:details [:summary "lister-user"] [lister-user]]
+    [:details [:summary "counting-component"] [counting-component]]
+    [:details [:summary "nested-details"] [nested-details]]
+    [:details [:summary "prnds-component"] [prnds-component]]
+    [:details [:summary "detailsum-component"] [detailsum-component]]
+    ;; [:details [:summary "xhr-component"] [xhr-component]]
+    [:div [:div "xhr-component"] [xhr-component]]]
+
 
 ])
 
