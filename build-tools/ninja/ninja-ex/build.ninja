@@ -10,6 +10,9 @@ build foo.o: cc foo.c
 build special.o: cc special.c
       cflags = -Wall
 
-
 # shadowing is only in the scope of the build, here they will get the outter cflags
 build bar.o: cc bar.c
+
+# phony
+## can be used as alias for other target
+build baralias: phony bar.o
