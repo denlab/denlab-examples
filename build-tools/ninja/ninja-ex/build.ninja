@@ -1,7 +1,15 @@
-cflags = -Wall
+cflags = -Wall -Werror
 
 rule cc
      command = gcc $cflags -c $in -o $out
 
+# foo get build with the outer cflags
 build foo.o: cc foo.c
 
+# binding shadowing
+build special.o: cc special.c
+      cflags = -Wall
+
+
+# shadowing is only in the scope of the build, here they will get the outter cflags
+build bar.o: cc bar.c
