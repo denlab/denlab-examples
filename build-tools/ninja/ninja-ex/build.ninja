@@ -1,4 +1,5 @@
 cflags = -Wall -Werror
+builddir = build
 
 rule cc
      command = gcc $cflags -c $in -o $out
@@ -25,5 +26,11 @@ default foo.o bar.o
 ## are cummulative
 ### will build foo.o bar.o special.o
 default special.o
+
+# ninja_log
+## keep a log of the command used to build target
+## allow ninja to rebuild target if the command has changed
+## is located by default in $PWD/.ninja_log
+## can have custom location with builddir:
 
 
