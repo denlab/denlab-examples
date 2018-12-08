@@ -13,6 +13,17 @@ build special.o: cc special.c
 # shadowing is only in the scope of the build, here they will get the outter cflags
 build bar.o: cc bar.c
 
+
 # phony
 ## can be used as alias for other target
 build baralias: phony bar.o
+
+
+# default target
+## are built if no target specified
+default foo.o bar.o
+## are cummulative
+### will build foo.o bar.o special.o
+default special.o
+
+
