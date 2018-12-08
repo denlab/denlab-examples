@@ -1,0 +1,44 @@
+cflags = -Wall -Werror
+builddir = build
+
+rule cc
+     command = gcc $cflags -c $in -o $out
+
+# buildep
+rule ccdep
+     depfile = $out.d
+     command = gcc -MMD -MF $out.d
+
+# foo get build with the outer cflags
+build foo.o: cc foo.c
+
+# binding shadowing
+build special.o: cc special.c
+      cflags = -Wall
+
+# shadowing is only in the scope of the build, here they will get the outter cflags
+build bar.o: cc bar.c
+
+build main.o: cc main.c
+
+build main: cc main.o
+
+build sum.o: cc sum.c
+
+# phony
+## can be used as alias for other target
+build baralias: phony bar.o
+
+
+# default target
+## are built if no target specified
+default foo.o bar.o
+## are cummulative
+### will build foo.o bar.o special.o
+default special.o
+
+# ninja_log
+## keep a log of the command used to build target
+## allow ninja to rebuild target if the command has changed
+## is located by default in $PWD/.ninja_log
+## can have custom location with builddir:
