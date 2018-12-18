@@ -1,0 +1,2 @@
+build bigbuild/0.o: bigbuild/0.c
+build bigbuild/1.o: bigbuild/1.c

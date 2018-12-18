@@ -2,15 +2,29 @@ cflags = -Wall -Werror
 builddir = build
 
 rule cc
-     command = gcc $cflags -c $in -o $out
+   command = gcc -c -o $out $in -MMD -MF $out.d
+   depfile = $out.d
+   deps = gcc
 
 # buildep
 rule ccdep
      depfile = $out.d
-     command = gcc -MMD -MF $out.d
+     command = gcc -MMD -MF $out.d 
+
+# rule oArc
+#      command = bash -c 'echo 'oArc.tgz: main.o sum.o' > $out.d && tar cavf $out $in'
+
+rule oArc
+     command = tar cavf $out $in
+
+# include deps.ninja
+
+build oArc.tgz: oArc main.o sum.o 
 
 # foo get build with the outer cflags
 build foo.o: cc foo.c
+
+# build bigbuild/0.o: bigbuild/0.c
 
 # binding shadowing
 build special.o: cc special.c
