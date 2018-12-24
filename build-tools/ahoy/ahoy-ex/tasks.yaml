@@ -1,0 +1,36 @@
+# All files must have v2 set or you'll get an error
+ahoyapi: v2
+
+# You can now override the entrypoint. This is the default if you don't override it.
+# {{cmd}} is replaced with your command and {{name}} is the name of the command that was run (available as $0)
+entrypoint:
+  - bash
+  - "-c"
+  - '{{cmd}}'
+  - '{{name}}'
+commands:
+  simple-command:
+      usage: An example of a single-line command.
+      cmd: echo "Do stuff with bash"
+
+  complex-command:
+      usage: Show more advanced features.
+      cmd: | # We support mulit-line commands with pipes.
+          echo "mulit-line bash script";
+          # You can call other ahoy commands.
+          ahoy simple-command
+          # you can take params
+          echo "your params were: $@"
+          # you can use numbered params, same as bash.
+          echo "param1: $1"
+          echo "param2: $2"
+          # Everything bash supports is available, if statements, etc.
+          # Hate bash? Use something else like python in a subscript or change the entrypoint.
+
+  subcommands:
+      usage: List the commands from the imported config files.
+      # These commands will be aggregated together with later files overriding earlier ones if they exist.
+      imports:
+        - ./some-file1.ahoy.yml
+        - ./some-file2.ahoy.yml
+        - ./some-file3.ahoy.yml
