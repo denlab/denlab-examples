@@ -1,0 +1,3 @@
+FROM centos:7
+RUN wget https://github.com/wagoodman/bashful/releases/download/v0.0.10/bashful_0.0.10_linux_amd64.rpm \
+    && rpm -i bashful_0.0.10_linux_amd64.rpm
