@@ -4,8 +4,15 @@ IFS=$'\n\t'
 
 json.viz.main() {
     cd $(dirname $(readlink -f $0))
-    cat > flare.json
-    make http-server.start
+    # if [[ -s flare.json ]]; then
+    #     rm flare.json
+    # fi
+    # if !  [[ -f flare.json ]]; then 
+        json.to.hier > flare.json
+    # fi
+    # return
+    # cat > flare.json
+    make http-server.start & 
     google-chrome http://localhost:8081/
 }
 
