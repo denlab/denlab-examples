@@ -1,0 +1,13 @@
+
+# cat flare-example-small.json \
+ jql '.
+| util::walk( .
+              | if type == "object" then .
+                    |  with_entries( .
+                                     | if .key == "children" then .key = "_children" else . end
+                                   )
+                 else .
+                 end
+  )
+' 
+# > flare-example-small-closed.json

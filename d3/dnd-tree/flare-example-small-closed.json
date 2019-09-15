@@ -1,0 +1,31 @@
+{
+  "_children": [
+    {
+      "_children": [
+        {
+          "_children": [
+            {
+              "name": "AgglomerativeCluster",
+              "size": 3938
+            },
+            {
+              "name": "CommunityStructure",
+              "size": 3812
+            },
+            {
+              "name": "HierarchicalCluster",
+              "size": 6714
+            },
+            {
+              "name": "MergeEdge",
+              "size": 743
+            }
+          ],
+          "name": "cluster"
+        }
+      ],
+      "name": "analytics"
+    }
+  ],
+  "name": "flare"
+}

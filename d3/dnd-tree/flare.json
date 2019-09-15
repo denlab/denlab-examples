@@ -1,10 +1,1 @@
-{
-  "name": "type",
-  "size": 1,
-  "_children": [
-    {
-      "name": "directory",
-      "size": 1
-    }
-  ]
-}
+flare-example.closed.json
