@@ -1,0 +1,1710 @@
+{
+  "name": "root",
+  "_children": [
+    {
+      "name": ".",
+      "_children": [
+        {
+          "name": "dndTree.js",
+          "size": 10
+        },
+        {
+          "name": "flare-example.closed.json",
+          "size": 25
+        },
+        {
+          "name": "flare-example.json",
+          "size": 18
+        },
+        {
+          "name": "flare-example-small-closed.json",
+          "size": 31
+        },
+        {
+          "name": "flare-example-small.json",
+          "size": 24
+        },
+        {
+          "name": "flare.json",
+          "_children": [
+            {
+              "name": "flare-tree.json",
+              "size": 1
+            }
+          ]
+        },
+        {
+          "name": "flare-min.json",
+          "size": 14
+        },
+        {
+          "name": "flare-test.json",
+          "size": 15
+        },
+        {
+          "name": "flare-tree.json",
+          "size": 15
+        },
+        {
+          "name": "index.html",
+          "size": 10
+        },
+        {
+          "name": "json.close",
+          "size": 10
+        },
+        {
+          "name": "json.viz",
+          "size": 8
+        },
+        {
+          "name": "lib",
+          "_children": [
+            {
+              "name": "fs2flare",
+              "size": 8
+            }
+          ],
+          "size": 0
+        },
+        {
+          "name": "Makefile",
+          "size": 8
+        },
+        {
+          "name": "node_modules",
+          "_children": [
+            {
+              "name": "async",
+              "_children": [
+                {
+                  "name": "CHANGELOG.md",
+                  "size": 12
+                },
+                {
+                  "name": "dist",
+                  "_children": [
+                    {
+                      "name": "async.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "async.min.js",
+                      "size": 12
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "async.js",
+                      "size": 8
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "colors",
+              "_children": [
+                {
+                  "name": "examples",
+                  "_children": [
+                    {
+                      "name": "normal-usage.js",
+                      "size": 15
+                    },
+                    {
+                      "name": "safe-string.js",
+                      "size": 14
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "colors.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "custom",
+                      "_children": [
+                        {
+                          "name": "trap.js",
+                          "size": 7
+                        },
+                        {
+                          "name": "zalgo.js",
+                          "size": 8
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "extendStringPrototype.js",
+                      "size": 24
+                    },
+                    {
+                      "name": "index.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "maps",
+                      "_children": [
+                        {
+                          "name": "america.js",
+                          "size": 10
+                        },
+                        {
+                          "name": "rainbow.js",
+                          "size": 10
+                        },
+                        {
+                          "name": "random.js",
+                          "size": 9
+                        },
+                        {
+                          "name": "zebra.js",
+                          "size": 8
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "styles.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "system",
+                      "_children": [
+                        {
+                          "name": "supports-colors.js",
+                          "size": 18
+                        }
+                      ],
+                      "size": 0
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "MIT-LICENSE.txt",
+                  "size": 15
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "ReadMe.md",
+                  "size": 9
+                },
+                {
+                  "name": "safe.js",
+                  "size": 7
+                },
+                {
+                  "name": "screenshots",
+                  "_children": [
+                    {
+                      "name": "colors.png",
+                      "size": 10
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "tests",
+                  "_children": [
+                    {
+                      "name": "basic-test.js",
+                      "size": 13
+                    },
+                    {
+                      "name": "safe-test.js",
+                      "size": 12
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "themes",
+                  "_children": [
+                    {
+                      "name": "generic-logging.js",
+                      "size": 18
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "corser",
+              "_children": [
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "corser.js",
+                      "size": 9
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "debug",
+              "_children": [
+                {
+                  "name": "CHANGELOG.md",
+                  "size": 12
+                },
+                {
+                  "name": "component.json",
+                  "size": 14
+                },
+                {
+                  "name": "karma.conf.js",
+                  "size": 13
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "Makefile",
+                  "size": 8
+                },
+                {
+                  "name": "node.js",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                },
+                {
+                  "name": "src",
+                  "_children": [
+                    {
+                      "name": "browser.js",
+                      "size": 10
+                    },
+                    {
+                      "name": "debug.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "index.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "inspector-log.js",
+                      "size": 16
+                    },
+                    {
+                      "name": "node.js",
+                      "size": 7
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "ecstatic",
+              "_children": [
+                {
+                  "name": "CHANGELOG.md",
+                  "size": 12
+                },
+                {
+                  "name": "CONTRIBUTING.md",
+                  "size": 15
+                },
+                {
+                  "name": "CONTRIBUTORS.md",
+                  "size": 15
+                },
+                {
+                  "name": "example",
+                  "_children": [
+                    {
+                      "name": "cli.sh",
+                      "size": 6
+                    },
+                    {
+                      "name": "core.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "express.js",
+                      "size": 10
+                    },
+                    {
+                      "name": "public",
+                      "_children": [
+                        {
+                          "name": "beep",
+                          "_children": [
+                            {
+                              "name": "index.html",
+                              "size": 10
+                            }
+                          ],
+                          "size": 0
+                        },
+                        {
+                          "name": "hello.txt",
+                          "size": 9
+                        },
+                        {
+                          "name": "subdir",
+                          "_children": [
+                            {
+                              "name": "world.txt",
+                              "size": 9
+                            }
+                          ],
+                          "size": 0
+                        },
+                        {
+                          "name": "turtle.png",
+                          "size": 10
+                        }
+                      ],
+                      "size": 0
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "ecstatic",
+                      "_children": [
+                        {
+                          "name": "aliases.json",
+                          "size": 12
+                        },
+                        {
+                          "name": "defaults.json",
+                          "size": 13
+                        },
+                        {
+                          "name": "etag.js",
+                          "size": 7
+                        },
+                        {
+                          "name": "opts.js",
+                          "size": 7
+                        },
+                        {
+                          "name": "show-dir",
+                          "_children": [
+                            {
+                              "name": "icons.json",
+                              "size": 10
+                            },
+                            {
+                              "name": "index.js",
+                              "size": 8
+                            },
+                            {
+                              "name": "perms-to-string.js",
+                              "size": 18
+                            },
+                            {
+                              "name": "size-to-string.js",
+                              "size": 17
+                            },
+                            {
+                              "name": "sort-files.js",
+                              "size": 13
+                            },
+                            {
+                              "name": "styles.js",
+                              "size": 9
+                            }
+                          ],
+                          "size": 0
+                        },
+                        {
+                          "name": "status-handlers.js",
+                          "size": 18
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "ecstatic.js",
+                      "size": 11
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE.txt",
+                  "size": 11
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "eventemitter3",
+              "_children": [
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "he",
+              "_children": [
+                {
+                  "name": "bin",
+                  "_children": [
+                    {
+                      "name": "he",
+                      "size": 2
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "he.js",
+                  "size": 5
+                },
+                {
+                  "name": "LICENSE-MIT.txt",
+                  "size": 15
+                },
+                {
+                  "name": "man",
+                  "_children": [
+                    {
+                      "name": "he.1",
+                      "size": 4
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "http-proxy",
+              "_children": [
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "http-proxy",
+                      "_children": [
+                        {
+                          "name": "common.js",
+                          "size": 9
+                        },
+                        {
+                          "name": "index.js",
+                          "size": 8
+                        },
+                        {
+                          "name": "passes",
+                          "_children": [
+                            {
+                              "name": "web-incoming.js",
+                              "size": 15
+                            },
+                            {
+                              "name": "web-outgoing.js",
+                              "size": 15
+                            },
+                            {
+                              "name": "ws-incoming.js",
+                              "size": 14
+                            }
+                          ],
+                          "size": 0
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "http-proxy.js",
+                      "size": 13
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "http-server",
+              "_children": [
+                {
+                  "name": "bin",
+                  "_children": [
+                    {
+                      "name": "http-server",
+                      "size": 11
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "http-server.js",
+                      "size": 14
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "mime",
+              "_children": [
+                {
+                  "name": "CHANGELOG.md",
+                  "size": 12
+                },
+                {
+                  "name": "cli.js",
+                  "size": 6
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "mime.js",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                },
+                {
+                  "name": "src",
+                  "_children": [
+                    {
+                      "name": "build.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "test.js",
+                      "size": 7
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "types.json",
+                  "size": 10
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "minimist",
+              "_children": [
+                {
+                  "name": "example",
+                  "_children": [
+                    {
+                      "name": "parse.js",
+                      "size": 8
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "readme.markdown",
+                  "size": 15
+                },
+                {
+                  "name": "test",
+                  "_children": [
+                    {
+                      "name": "all_bool.js",
+                      "size": 11
+                    },
+                    {
+                      "name": "bool.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "dash.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "default_bool.js",
+                      "size": 15
+                    },
+                    {
+                      "name": "dotted.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "kv_short.js",
+                      "size": 11
+                    },
+                    {
+                      "name": "long.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "num.js",
+                      "size": 6
+                    },
+                    {
+                      "name": "parse.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "parse_modified.js",
+                      "size": 17
+                    },
+                    {
+                      "name": "short.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "stop_early.js",
+                      "size": 13
+                    },
+                    {
+                      "name": "unknown.js",
+                      "size": 10
+                    },
+                    {
+                      "name": "whitespace.js",
+                      "size": 13
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "mkdirp",
+              "_children": [
+                {
+                  "name": "bin",
+                  "_children": [
+                    {
+                      "name": "cmd.js",
+                      "size": 6
+                    },
+                    {
+                      "name": "usage.txt",
+                      "size": 9
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "examples",
+                  "_children": [
+                    {
+                      "name": "pow.js",
+                      "size": 6
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "node_modules",
+                  "_children": [
+                    {
+                      "name": "minimist",
+                      "_children": [
+                        {
+                          "name": "example",
+                          "_children": [
+                            {
+                              "name": "parse.js",
+                              "size": 8
+                            }
+                          ],
+                          "size": 0
+                        },
+                        {
+                          "name": "index.js",
+                          "size": 8
+                        },
+                        {
+                          "name": "LICENSE",
+                          "size": 7
+                        },
+                        {
+                          "name": "package.json",
+                          "size": 12
+                        },
+                        {
+                          "name": "readme.markdown",
+                          "size": 15
+                        },
+                        {
+                          "name": "test",
+                          "_children": [
+                            {
+                              "name": "dash.js",
+                              "size": 7
+                            },
+                            {
+                              "name": "default_bool.js",
+                              "size": 15
+                            },
+                            {
+                              "name": "dotted.js",
+                              "size": 9
+                            },
+                            {
+                              "name": "long.js",
+                              "size": 7
+                            },
+                            {
+                              "name": "parse.js",
+                              "size": 8
+                            },
+                            {
+                              "name": "parse_modified.js",
+                              "size": 17
+                            },
+                            {
+                              "name": "short.js",
+                              "size": 8
+                            },
+                            {
+                              "name": "whitespace.js",
+                              "size": 13
+                            }
+                          ],
+                          "size": 0
+                        }
+                      ],
+                      "size": 0
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "readme.markdown",
+                  "size": 15
+                },
+                {
+                  "name": "test",
+                  "_children": [
+                    {
+                      "name": "chmod.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "clobber.js",
+                      "size": 10
+                    },
+                    {
+                      "name": "mkdirp.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "opts_fs.js",
+                      "size": 10
+                    },
+                    {
+                      "name": "opts_fs_sync.js",
+                      "size": 15
+                    },
+                    {
+                      "name": "perm.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "perm_sync.js",
+                      "size": 12
+                    },
+                    {
+                      "name": "race.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "rel.js",
+                      "size": 6
+                    },
+                    {
+                      "name": "return.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "return_sync.js",
+                      "size": 14
+                    },
+                    {
+                      "name": "root.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "sync.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "umask.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "umask_sync.js",
+                      "size": 13
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "ms",
+              "_children": [
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "license.md",
+                  "size": 10
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "readme.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "opener",
+              "_children": [
+                {
+                  "name": "LICENSE.txt",
+                  "size": 11
+                },
+                {
+                  "name": "opener.js",
+                  "size": 9
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "optimist",
+              "_children": [
+                {
+                  "name": "example",
+                  "_children": [
+                    {
+                      "name": "boolean_double.js",
+                      "size": 17
+                    },
+                    {
+                      "name": "boolean_single.js",
+                      "size": 17
+                    },
+                    {
+                      "name": "bool.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "default_hash.js",
+                      "size": 15
+                    },
+                    {
+                      "name": "default_singles.js",
+                      "size": 18
+                    },
+                    {
+                      "name": "divide.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "line_count.js",
+                      "size": 13
+                    },
+                    {
+                      "name": "line_count_options.js",
+                      "size": 21
+                    },
+                    {
+                      "name": "line_count_wrap.js",
+                      "size": 18
+                    },
+                    {
+                      "name": "nonopt.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "reflect.js",
+                      "size": 10
+                    },
+                    {
+                      "name": "short.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "string.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "usage-options.js",
+                      "size": 16
+                    },
+                    {
+                      "name": "xup.js",
+                      "size": 6
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "node_modules",
+                  "_children": [
+                    {
+                      "name": "minimist",
+                      "_children": [
+                        {
+                          "name": "example",
+                          "_children": [
+                            {
+                              "name": "parse.js",
+                              "size": 8
+                            }
+                          ],
+                          "size": 0
+                        },
+                        {
+                          "name": "index.js",
+                          "size": 8
+                        },
+                        {
+                          "name": "LICENSE",
+                          "size": 7
+                        },
+                        {
+                          "name": "package.json",
+                          "size": 12
+                        },
+                        {
+                          "name": "readme.markdown",
+                          "size": 15
+                        },
+                        {
+                          "name": "test",
+                          "_children": [
+                            {
+                              "name": "bool.js",
+                              "size": 7
+                            },
+                            {
+                              "name": "dash.js",
+                              "size": 7
+                            },
+                            {
+                              "name": "default_bool.js",
+                              "size": 15
+                            },
+                            {
+                              "name": "dotted.js",
+                              "size": 9
+                            },
+                            {
+                              "name": "long.js",
+                              "size": 7
+                            },
+                            {
+                              "name": "num.js",
+                              "size": 6
+                            },
+                            {
+                              "name": "parse.js",
+                              "size": 8
+                            },
+                            {
+                              "name": "parse_modified.js",
+                              "size": 17
+                            },
+                            {
+                              "name": "short.js",
+                              "size": 8
+                            },
+                            {
+                              "name": "whitespace.js",
+                              "size": 13
+                            }
+                          ],
+                          "size": 0
+                        }
+                      ],
+                      "size": 0
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "readme.markdown",
+                  "size": 15
+                },
+                {
+                  "name": "test",
+                  "_children": [
+                    {
+                      "name": "_",
+                      "_children": [
+                        {
+                          "name": "argv.js",
+                          "size": 7
+                        },
+                        {
+                          "name": "bin.js",
+                          "size": 6
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "dash.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "_.js",
+                      "size": 4
+                    },
+                    {
+                      "name": "parse.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "parse_modified.js",
+                      "size": 17
+                    },
+                    {
+                      "name": "short.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "usage.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "whitespace.js",
+                      "size": 13
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "portfinder",
+              "_children": [
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "portfinder.d.ts",
+                      "size": 15
+                    },
+                    {
+                      "name": "portfinder.js",
+                      "size": 13
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "qs",
+              "_children": [
+                {
+                  "name": "CHANGELOG.md",
+                  "size": 12
+                },
+                {
+                  "name": "CONTRIBUTING.md",
+                  "size": 15
+                },
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "index.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "parse.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "stringify.js",
+                      "size": 12
+                    },
+                    {
+                      "name": "utils.js",
+                      "size": 8
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "Makefile",
+                  "size": 8
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                },
+                {
+                  "name": "test",
+                  "_children": [
+                    {
+                      "name": "parse.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "stringify.js",
+                      "size": 12
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "requires-port",
+              "_children": [
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                },
+                {
+                  "name": "test.js",
+                  "size": 7
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "union",
+              "_children": [
+                {
+                  "name": "CHANGELOG.md",
+                  "size": 12
+                },
+                {
+                  "name": "examples",
+                  "_children": [
+                    {
+                      "name": "after",
+                      "_children": [
+                        {
+                          "name": "index.js",
+                          "size": 8
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "simple",
+                      "_children": [
+                        {
+                          "name": "favicon.png",
+                          "size": 11
+                        },
+                        {
+                          "name": "middleware",
+                          "_children": [
+                            {
+                              "name": "favicon.js",
+                              "size": 10
+                            },
+                            {
+                              "name": "gzip-decode.js",
+                              "size": 14
+                            },
+                            {
+                              "name": "gzip-encode.js",
+                              "size": 14
+                            }
+                          ],
+                          "size": 0
+                        },
+                        {
+                          "name": "simple.js",
+                          "size": 9
+                        },
+                        {
+                          "name": "spdy.js",
+                          "size": 7
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "socketio",
+                      "_children": [
+                        {
+                          "name": "index.html",
+                          "size": 10
+                        },
+                        {
+                          "name": "README",
+                          "size": 6
+                        },
+                        {
+                          "name": "server.js",
+                          "size": 9
+                        }
+                      ],
+                      "size": 0
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "buffered-stream.js",
+                      "size": 18
+                    },
+                    {
+                      "name": "core.js",
+                      "size": 7
+                    },
+                    {
+                      "name": "http-stream.js",
+                      "size": 14
+                    },
+                    {
+                      "name": "index.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "request-stream.js",
+                      "size": 17
+                    },
+                    {
+                      "name": "response-stream.js",
+                      "size": 18
+                    },
+                    {
+                      "name": "routing-stream.js",
+                      "size": 17
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                },
+                {
+                  "name": "test",
+                  "_children": [
+                    {
+                      "name": "after-test.js",
+                      "size": 13
+                    },
+                    {
+                      "name": "body-parser-test.js",
+                      "size": 19
+                    },
+                    {
+                      "name": "double-write-test.js",
+                      "size": 20
+                    },
+                    {
+                      "name": "ecstatic-test.js",
+                      "size": 16
+                    },
+                    {
+                      "name": "fixtures",
+                      "_children": [
+                        {
+                          "name": "index.js",
+                          "size": 8
+                        },
+                        {
+                          "name": "static",
+                          "_children": [
+                            {
+                              "name": "some-file.txt",
+                              "size": 13
+                            }
+                          ],
+                          "size": 0
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "header-test.js",
+                      "size": 14
+                    },
+                    {
+                      "name": "helpers",
+                      "_children": [
+                        {
+                          "name": "index.js",
+                          "size": 8
+                        },
+                        {
+                          "name": "macros.js",
+                          "size": 9
+                        }
+                      ],
+                      "size": 0
+                    },
+                    {
+                      "name": "prop-test.js",
+                      "size": 12
+                    },
+                    {
+                      "name": "simple-test.js",
+                      "size": 14
+                    },
+                    {
+                      "name": "status-code-test.js",
+                      "size": 19
+                    },
+                    {
+                      "name": "streaming-test.js",
+                      "size": 17
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "union.png",
+                  "size": 9
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "url-join",
+              "_children": [
+                {
+                  "name": "bower.json",
+                  "size": 10
+                },
+                {
+                  "name": "lib",
+                  "_children": [
+                    {
+                      "name": "url-join.js",
+                      "size": 11
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.md",
+                  "size": 9
+                },
+                {
+                  "name": "test",
+                  "_children": [
+                    {
+                      "name": "tests.js",
+                      "size": 8
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            },
+            {
+              "name": "wordwrap",
+              "_children": [
+                {
+                  "name": "example",
+                  "_children": [
+                    {
+                      "name": "center.js",
+                      "size": 9
+                    },
+                    {
+                      "name": "meat.js",
+                      "size": 7
+                    }
+                  ],
+                  "size": 0
+                },
+                {
+                  "name": "index.js",
+                  "size": 8
+                },
+                {
+                  "name": "LICENSE",
+                  "size": 7
+                },
+                {
+                  "name": "package.json",
+                  "size": 12
+                },
+                {
+                  "name": "README.markdown",
+                  "size": 15
+                },
+                {
+                  "name": "test",
+                  "_children": [
+                    {
+                      "name": "break.js",
+                      "size": 8
+                    },
+                    {
+                      "name": "idleness.txt",
+                      "size": 12
+                    },
+                    {
+                      "name": "wrap.js",
+                      "size": 7
+                    }
+                  ],
+                  "size": 0
+                }
+              ],
+              "size": 0
+            }
+          ],
+          "size": 0
+        },
+        {
+          "name": "package.json",
+          "size": 12
+        },
+        {
+          "name": "package-lock.json",
+          "size": 17
+        },
+        {
+          "name": "README.org",
+          "size": 10
+        }
+      ],
+      "size": 0
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+tree -J "${1:-.}" \
+| jql \
+    --argjson nosize false ' .
+| util::walk( .
+        | if type == "object" then .
+            | if .type == "directory" then  {name, _children: .contents, size: (.content |[.. | normals] | length)}
+              elif .type == "file"    then  {name, size: (.name|length)}
+              elif .type == "report"  then  empty
+              elif .type == "link"    then  {name, _children: [{name: .target, size: 1}]}
+              else error("unxpected type \(.type)")
+              end
+          else .
+          end
+  )
+| {name: "root", _children: .}
+| core::when($nosize
+              ; 
+              util::walk( core::when(type == "object" ; del(.size))))
+' 
+
+# tree -J . \
+# | jql ' .
+# | util::walk( .
+#         | if type == "object" then .
+#             | if .type == "directory" then  {name, _children: .contents, size: (.content |[.. | normals] | length)}
+#               elif .type == "file"    then  {name, size: 1}
+#               elif .type == "report"  then  empty
+#               elif .type == "link"    then  {name, _children: [{name: .target, size: 1}]}
+#               else error("unxpected type \(.type)")
+#               end
+#           else .
+#           end
+#   )
+# | {name: "root", _children: .}
+# ' 
