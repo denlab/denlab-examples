@@ -1,0 +1,7 @@
+a1:
+  - &a FOO
+  - BAR
+
+a2:
+  - *a
+  - BAZ

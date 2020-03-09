@@ -1,0 +1,7 @@
+a1: &a
+  foo: FOO
+  bar: BAR
+
+a2:
+  <<: *a
+  baz: BAZ
